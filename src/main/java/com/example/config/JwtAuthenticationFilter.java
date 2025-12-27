@@ -1,8 +1,7 @@
 package com.example.config;
 
-import dasturlash.uz.dto.JwtDTO;
-import dasturlash.uz.util.JwtUtil;
-import io.jsonwebtoken.JwtException;
+import com.example.dto.JwtDTO;
+import com.example.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             filterChain.doFilter(request, response); // Continue the filter chain
-        } catch (JwtException | UsernameNotFoundException e) {
+        } catch (UsernameNotFoundException e) {
             filterChain.doFilter(request, response); // Continue the filter chain
             return;
         }

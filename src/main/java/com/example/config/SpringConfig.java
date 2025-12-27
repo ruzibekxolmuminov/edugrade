@@ -31,19 +31,10 @@ public class SpringConfig {
     }
 
     public static final String[] AUTH_WHITELIST = {
-            "/region/v1/lang",
-            "/section/v1/lang",
-            "/profile/v1/update/{id}",
-            "/profile/v1/password/{id}",
-            "/category/v1/lang",
-            "/attach/v1/open/{id}",
-            "/api/v1/attach/upload",
-            "/attach/v1/download/{id}",
-            "/api/v1/auth/**",
-            "/api/v1/saved-article/**",
-            "/api/v1/tag/create",
-            "/api/v1/auth/**",
-            "/api/v1/auth",
+            "/v1/auth/login",
+            "/v1/attach/open/{id}",
+            "/v1/attach/upload",
+            "/v1/attach/download/{id}",
             "/swagger-ui/**",
             "/v3/api-docs",
             "/v3/api-docs/**"

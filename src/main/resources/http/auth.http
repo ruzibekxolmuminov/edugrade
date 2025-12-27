@@ -1,0 +1,45 @@
+### LOGIN
+POST localhost:8080/v1/auth/login
+Content-Type: application/json
+
+{
+  "passportNumber": "1234567",
+  "password": "12345"
+}
+
+### CREATE ADMIN
+POST localhost:8080/v1/auth/registration/moderator
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY4NDA4ODcsImV4cCI6MTc2NjkyNzI4N30.XWWCJ4Jt28hfsP3c1Dma0GRZ8AC1H_uICl_82j_fpJMvgd7jj3ozKRv6WAVnytuJu-o-CS0WQeTfExOeuv5uxQ
+Content-Type: application/json
+
+{
+  "firstName": "asilbek",
+  "lastName": "xolmuminov",
+  "patronymic": "anvarovich",
+  "birthDate": "2003-11-14",
+  "password": "12345",
+  "gender": "MALE",
+  "pinfl": "123456",
+  "passportSeries": "AB",
+  "passportNumber": "123456789"
+}
+
+### CREATE TEACHER OR STUDENT
+POST localhost:8080/v1/auth/registration/admin
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3ODkiLCJzdWIiOiIxMjM0NTY3ODkiLCJpYXQiOjE3NjY4NDE1MjcsImV4cCI6MTc2NjkyNzkyN30.B3omL8BScRR6SW3ZCXl9Q6aWCZEiFErmJB_cSoLzpBDeSroZGcyPg-xkDEKrVkFyEmLI_p151eQaSbUDkRJlkw
+Content-Type: application/json
+
+{
+  "firstName": "asilbek",
+  "lastName": "xolmuminov",
+  "patronymic": "anvarovich",
+  "birthDate": "2003-11-14",
+  "password": "12345",
+  "gender": "MALE",
+  "pinfl": "123456",
+  "passportSeries": "AB",
+  "passportNumber": "12345",
+  "roles": ["ROLE_TEACHER"]
+}
+
+> {% client.global.set("jwt", response.body.jwt); %}

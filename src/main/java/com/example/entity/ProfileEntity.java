@@ -1,11 +1,12 @@
 package com.example.entity;
 
 import com.example.enums.ProfileGender;
-import com.example.enums.ProfileRole;
+import com.example.enums.ProfileRoleEnum;
 import com.example.enums.ProfileStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,12 +17,12 @@ public class ProfileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column(name = "surname")
-    private String surname;
+    @Column(name = "firstname")
+    private String firstname;
     @Column(name = "lastname")
     private String lastname;
     @Column(name = "birthdate")
-    private String birthdate;
+    private LocalDate birthdate;
     @Column(name = "patronymic")
     private String patronymic;
     @Column(name = "passport_series")
@@ -39,11 +40,14 @@ public class ProfileEntity {
     @Enumerated(value = EnumType.STRING)
     private ProfileStatus status;
     @Enumerated(value = EnumType.STRING)
-    private ProfileRole role;
-    @Enumerated(value = EnumType.STRING)
     private ProfileGender gender;
+    @Column(name = "school_id")
+    private String schoolId;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_id", insertable = false, updatable = false)
     private SchoolEntity school;
+
     @OneToMany(mappedBy = "profile")
     private List<ProfileRoleEntity> roles;
 

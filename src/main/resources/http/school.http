@@ -1,0 +1,13 @@
+### CREATE SCHOOl
+POST localhost:8080/v1/school/create/moderator
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY4NDUzNjIsImV4cCI6MTc2NjkzMTc2Mn0.AJjZuPBjTZr1AtP3WjLbnKYUZSdKoyWaY96pHPPkKCj_sqqUElr9jXI1I_pijv0zw7eYDLhCpmoI-ORYzWlqfQ
+Content-Type: application/json
+
+{
+  "name": "test 2",
+  "address": "test 3",
+  "number": 70,
+  "attachId": "d0ea248f-7598-4a18-8b02-8527597ee85b.jpg",
+  "regionId": 1
+}
+

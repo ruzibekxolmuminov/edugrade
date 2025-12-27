@@ -1,7 +1,8 @@
 package com.example.config;
 
-import dasturlash.uz.enums.ProfileRoleEnum;
-import dasturlash.uz.enums.ProfileStatus;
+import com.example.enums.ProfileRoleEnum;
+import com.example.enums.ProfileStatus;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,16 +12,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
-    private Integer id;
-    private String username;
+    @Getter
+    private String id;
+    private String passport_number;
     private String password;
     private ProfileStatus status;
     private List<SimpleGrantedAuthority> roles;
 
-    public CustomUserDetails(Integer id, String username, String password, ProfileStatus status,
+    public CustomUserDetails(String id, String username, String password, ProfileStatus status,
                              List<ProfileRoleEnum> roleList) {
         this.id = id;
-        this.username = username;
+        this.passport_number = username;
         this.password = password;
         this.status = status;
 
@@ -43,7 +45,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return passport_number;
     }
 
     @Override
@@ -66,7 +68,4 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
-    public Integer getId() {
-        return id;
-    }
 }

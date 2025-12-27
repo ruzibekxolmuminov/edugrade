@@ -1,6 +1,6 @@
 package com.example.entity;
 
-import com.example.enums.ProfileRole;
+import com.example.enums.ProfileRoleEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,12 +15,12 @@ public class ProfileRoleEntity {
     private Integer id;
 
     @Column(name = "profile_id")
-    private Integer profileId;
+    private String profileId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id", insertable = false, updatable = false, nullable = false)
     private ProfileEntity profile;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "roles")
-    private ProfileRole roles;
+    private ProfileRoleEnum roles;
 }

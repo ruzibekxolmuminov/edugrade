@@ -1,0 +1,24 @@
+package com.example.dto.auth;
+
+import com.example.enums.ProfileGender;
+import com.example.enums.ProfileRoleEnum;
+import lombok.Data;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Data
+public class AuthDTO {
+    private String firstName;
+    private String lastName;
+    private String patronymic;
+    private ProfileGender gender;
+    private String schoolId;
+    private LocalDate birthDate;
+    private String pinfl;
+    private String passportSeries;
+    private String passportNumber;
+    private List<ProfileRoleEnum> roles;
+    private String jwt;
+
+}
