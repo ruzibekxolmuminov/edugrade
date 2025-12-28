@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.dto.SchoolCreateDTO;
 import com.example.dto.SchoolDTO;
 import com.example.entity.SchoolEntity;
+import com.example.exp.AppBadException;
 import com.example.exp.UserExist;
 import com.example.repository.SchoolRepository;
 import org.jspecify.annotations.Nullable;
@@ -48,5 +49,13 @@ public class SchoolService {
         dto.setVisible(schoolEntity.getVisible());
         dto.setNumber(schoolEntity.getNumber());
         return dto;
+    }
+
+    public String getById(String schoolId) {
+        String name = schoolRepository.getNameByIdAndVisibleIsTrue(schoolId);
+        if (name == null) {
+            throw new AppBadException("School with this information is not exist");
+        }
+        return name;
     }
 }

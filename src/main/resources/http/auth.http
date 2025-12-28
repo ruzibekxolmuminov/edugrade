@@ -3,13 +3,13 @@ POST localhost:8080/v1/auth/login
 Content-Type: application/json
 
 {
-  "passportNumber": "1234567",
+  "passportNumber": "12345",
   "password": "12345"
 }
 
 ### CREATE ADMIN
 POST localhost:8080/v1/auth/registration/moderator
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY4NDA4ODcsImV4cCI6MTc2NjkyNzI4N30.XWWCJ4Jt28hfsP3c1Dma0GRZ8AC1H_uICl_82j_fpJMvgd7jj3ozKRv6WAVnytuJu-o-CS0WQeTfExOeuv5uxQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY5MjA1ODMsImV4cCI6MTc2NzAwNjk4M30.PC_X-3PUULTzc2J3RQec2HSNCO-aPlnx_HoUR0ucunfVGg66YWRKN5ZtDpE8PBlcD-CZFHEGQvQXE1d9zbDyTQ
 Content-Type: application/json
 
 {
@@ -19,14 +19,16 @@ Content-Type: application/json
   "birthDate": "2003-11-14",
   "password": "12345",
   "gender": "MALE",
-  "pinfl": "123456",
+  "pinfl": "123",
   "passportSeries": "AB",
-  "passportNumber": "123456789"
+  "passportNumber": "12345",
+  "roles": ["ROLE_ADMIN"],
+  "schoolId": "7cf08c00-d823-433d-adc6-c05ac07cd21b"
 }
 
 ### CREATE TEACHER OR STUDENT
 POST localhost:8080/v1/auth/registration/admin
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3ODkiLCJzdWIiOiIxMjM0NTY3ODkiLCJpYXQiOjE3NjY4NDE1MjcsImV4cCI6MTc2NjkyNzkyN30.B3omL8BScRR6SW3ZCXl9Q6aWCZEiFErmJB_cSoLzpBDeSroZGcyPg-xkDEKrVkFyEmLI_p151eQaSbUDkRJlkw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NSIsInN1YiI6IjEyMzQ1IiwiaWF0IjoxNzY2OTI0NTYzLCJleHAiOjE3NjcwMTA5NjN9.G-42o6HPltsqyjNufUhMjLZcP2ek3yMKeibGO56o4kTz9sY9DXmPezRXqqa1kn3xDvIqPt-skbDENfybgJqSmw
 Content-Type: application/json
 
 {
@@ -36,10 +38,29 @@ Content-Type: application/json
   "birthDate": "2003-11-14",
   "password": "12345",
   "gender": "MALE",
-  "pinfl": "123456",
+  "pinfl": "12345678",
   "passportSeries": "AB",
-  "passportNumber": "12345",
-  "roles": ["ROLE_TEACHER"]
+  "passportNumber": "1234",
+  "roles": ["ROLE_TEACHER"],
+  "schoolId": "7cf08c00-d823-433d-adc6-c05ac07cd21b"
 }
+
+### GET BY ID (MODERATOR)
+GET localhost:8080/v1/auth/get/moderator/a808584d-6a6b-4c34-9c43-7f97eff0979c
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY5MjA1ODMsImV4cCI6MTc2NzAwNjk4M30.PC_X-3PUULTzc2J3RQec2HSNCO-aPlnx_HoUR0ucunfVGg66YWRKN5ZtDpE8PBlcD-CZFHEGQvQXE1d9zbDyTQ
+
+### GET BY ID (ADMIN)
+GET localhost:8080/v1/auth/get/admin/50c20719-05a9-437e-98a0-7a0d91d7bb1d
+Authorization:  Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NSIsInN1YiI6IjEyMzQ1IiwiaWF0IjoxNzY2OTIyMjAxLCJleHAiOjE3NjcwMDg2MDF9.1JfnouuIBcqsMYliuNN9A9d0zSkuzXLmZZU4u9TD6qhJTpfMN7BsU3ZJZkyZQhqCaTNGpiR2E024BG2710Jskw
+
+### UPDATE (MODERATOR)
+PUT localhost:8080/v1/auth/update/moderator/178cf42c-7adc-46cb-ae3a-7462dc586aea
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY5MjA1ODMsImV4cCI6MTc2NzAwNjk4M30.PC_X-3PUULTzc2J3RQec2HSNCO-aPlnx_HoUR0ucunfVGg66YWRKN5ZtDpE8PBlcD-CZFHEGQvQXE1d9zbDyTQ
+Content-Type: application/json
+
+{
+  "name": "tinchku"
+}
+
 
 > {% client.global.set("jwt", response.body.jwt); %}

@@ -4,8 +4,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sI
 Content-Type: application/json
 
 {
-  "name": "test 2",
-  "address": "test 3",
+  "name": "test 5",
+  "address": "test 4",
   "number": 70,
   "attachId": "d0ea248f-7598-4a18-8b02-8527597ee85b.jpg",
   "regionId": 1

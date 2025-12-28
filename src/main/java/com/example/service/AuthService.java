@@ -1,20 +1,21 @@
 package com.example.service;
 
-import com.example.dto.auth.AuthAdminCreateDTO;
-import com.example.dto.auth.AuthDTO;
-import com.example.dto.auth.AuthLoginDTO;
-import com.example.dto.auth.AuthModeratorCreateDTO;
+import com.example.dto.profile.ProfileInfoDTO;
+import com.example.dto.auth.*;
+import com.example.dto.profile.ProfileUpdateModeratorRequestDTO;
 import com.example.entity.ProfileEntity;
-import com.example.enums.ProfileAdminRoleEnum;
 import com.example.enums.ProfileRoleEnum;
 import com.example.enums.ProfileStatus;
 import com.example.exp.AppBadException;
+import com.example.exp.UserExist;
 import com.example.exp.UserNotFound;
 import com.example.repository.ProfileRepository;
 import com.example.util.JwtUtil;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,18 +31,19 @@ public class AuthService {
     private ProfileRoleService profileRoleService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private SchoolService schoolService;
 
-    public @Nullable String registrationByModerator(AuthModeratorCreateDTO profile) {
-        Optional<ProfileEntity> existOptional = profileRepository.findByPinflOrPassportNumberOrPassportSeries(profile.getPinfl()
-                , profile.getPassportNumber()
-                , profile.getPassportSeries());
+    public @Nullable AuthCreateResponseDTO registrationByModerator(AuthModeratorCreateDTO profile) {
+        Optional<ProfileEntity> existOptional = profileRepository.findByPinflOrPassportNumber(profile.getPinfl()
+                , profile.getPassportNumber());
         if (existOptional.isPresent()) {
             ProfileEntity existProfile = existOptional.get();
             if (existProfile.getStatus().equals(ProfileStatus.NOT_ACTIVE)) {
                 profileRoleService.deleteRoleByProfileId(existProfile.getId());
                 profileRepository.deleteById(existProfile.getId());
             } else {
-                log.error("With this Pinfl: {}, PassportNumber: {} or PassportSeries: {} user is existed", profile.getPinfl(), profile.getPassportNumber(), profile.getPassportSeries());
+                throw new UserExist("With this same Pinfl, PassportNumber user is existed");
             }
         }
         ProfileEntity createProfile = new ProfileEntity();
@@ -58,22 +60,38 @@ public class AuthService {
         createProfile.setStatus(ProfileStatus.ACTIVE);
         createProfile.setVisible(true);
         profileRepository.save(createProfile);
-        profileRoleService.create(createProfile.getId(), ProfileRoleEnum.ROLE_ADMIN);
+        profileRoleService.createModerator(createProfile.getId(), profile.getRoles());
 
-        return "Tasdiqlash kodi ketdi. Iltimos tekshiring!";
+        return toResponseDTO(createProfile);
     }
 
-    public @Nullable String registrationByAdmin(AuthAdminCreateDTO profile) {
-        Optional<ProfileEntity> existOptional = profileRepository.findByPinflOrPassportNumberOrPassportSeries(profile.getPinfl()
-                , profile.getPassportNumber()
-                , profile.getPassportSeries());
+    private @Nullable AuthCreateResponseDTO toResponseDTO(ProfileEntity profile) {
+        AuthCreateResponseDTO responseDTO = new AuthCreateResponseDTO();
+        responseDTO.setId(profile.getId());
+        responseDTO.setPinfl(profile.getPinfl());
+        responseDTO.setPassportNumber(profile.getPassportNumber());
+        responseDTO.setPassportSeries(profile.getPassportSeries());
+        responseDTO.setGender(profile.getGender());
+        responseDTO.setFirstName(profile.getFirstname());
+        responseDTO.setLastName(profile.getLastname());
+        responseDTO.setPatronymic(profile.getPatronymic());
+        responseDTO.setBirthDate(profile.getBirthdate());
+        responseDTO.setRoles(profileRoleService.getByProfileId(profile.getId()));
+        responseDTO.setSchoolId(profile.getSchoolId());
+
+        return responseDTO;
+    }
+
+    public @Nullable AuthCreateResponseDTO registrationByAdmin(AuthAdminCreateDTO profile) {
+        Optional<ProfileEntity> existOptional = profileRepository.findByPinflOrPassportNumber(profile.getPinfl()
+                , profile.getPassportNumber());
         if (existOptional.isPresent()) {
             ProfileEntity existProfile = existOptional.get();
             if (existProfile.getStatus().equals(ProfileStatus.NOT_ACTIVE)) {
                 profileRoleService.deleteRoleByProfileId(existProfile.getId());
                 profileRepository.deleteById(existProfile.getId());
             } else {
-                log.error("With this Pinfl: {}, PassportNumber: {} or PassportSeries: {} user is existed", profile.getPinfl(), profile.getPassportNumber(), profile.getPassportSeries());
+                throw new UserExist("With this Pinfl, PassportNumber and PassportSeries user is existed");
             }
         }
         ProfileEntity createProfile = new ProfileEntity();
@@ -90,12 +108,8 @@ public class AuthService {
         createProfile.setStatus(ProfileStatus.ACTIVE);
         createProfile.setVisible(true);
         profileRepository.save(createProfile);
-        List<ProfileAdminRoleEnum> roleEnums = profile.getRoles();
-
-        profileRoleService.create(createProfile.getId(), profile.getRoles());
-
-
-        return "Profile muvaffaqiyatli yaratildi!";
+        profileRoleService.createAdmin(createProfile.getId(), profile.getRoles());
+        return toResponseDTO(createProfile);
     }
 
     public @Nullable AuthDTO login(AuthLoginDTO profileLoginDTO) {
@@ -128,5 +142,76 @@ public class AuthService {
         profileDTO.setSchoolId(profile.getSchoolId());
         profileDTO.setJwt(JwtUtil.encode(profile.getPassportNumber(), profileDTO.getRoles()));
         return profileDTO;
+    }
+
+
+    public @Nullable ProfileInfoDTO getByIdModerator(String id) {
+        Optional<ProfileEntity> profileEntity = profileRepository.findById(id);
+        if (profileEntity.isEmpty()) {
+            throw new UserNotFound("User not found");
+        }
+        ProfileEntity profile = profileEntity.get();
+
+        return toDTO(profile);
+    }
+
+    private ProfileInfoDTO toDTO(ProfileEntity entity) {
+        ProfileInfoDTO dto = new ProfileInfoDTO();
+        dto.setId(entity.getId());
+        dto.setName(entity.getFirstname());
+        dto.setSurname(entity.getLastname());
+        dto.setPatronymic(entity.getPatronymic());
+        dto.setStatus(entity.getStatus());
+        dto.setSchoolId(entity.getSchoolId());
+        dto.setSchoolName(schoolService.getById(entity.getSchoolId()));
+        dto.setRoleList(profileRoleService.getByProfileId(entity.getId()));
+
+        return dto;
+    }
+
+    public @Nullable ProfileInfoDTO getByIdAdmin(String id) {
+        Optional<ProfileEntity> profileEntity = profileRepository.findById(id);
+        if (profileEntity.isEmpty()) {
+            throw new UserNotFound("User not found");
+        }
+        Optional<ProfileEntity> usernameOptional = profileRepository.findByIdAndVisibleIsTrue(id);
+        if (usernameOptional.isEmpty()) {
+            throw new AppBadException("Profile not found");
+        }
+        Optional<ProfileEntity> isModerator = profileRepository.isModerator(id);
+        if (isModerator.isPresent()) {
+            throw new UserNotFound("You can not get Moderator details! You are ADMIN");
+        }
+        ProfileEntity profile = profileEntity.get();
+
+        return toDTO(profile);
+    }
+
+    public @Nullable String updateByModerator(String id, ProfileUpdateModeratorRequestDTO update) {
+
+        ProfileEntity entity = get(id);
+        if(update == null) {
+            throw new AppBadException("You did not update any information!");
+        }else if (update.getName() != null) {
+            entity.setFirstname(update.getName());
+        } else if (update.getSurname() != null) {
+            entity.setLastname(update.getSurname());
+        } else if (update.getStatus() != null) {
+            entity.setStatus(update.getStatus());
+        } else if (update.getSchoolId() != null) {
+            entity.setSchoolId(update.getSchoolId());
+        }
+        profileRepository.save(entity); // update
+        if (update.getRoleList() != null) {
+            profileRoleService.merge(entity.getId(), update.getRoleList());
+
+        }
+        return "Muvaffaqiyatli yangilandi!";
+    }
+
+    public ProfileEntity get(String id) {
+        return profileRepository.findByIdAndVisibleIsTrue(id).orElseThrow(() -> {
+            throw new AppBadException("Profile not found");
+        });
     }
 }

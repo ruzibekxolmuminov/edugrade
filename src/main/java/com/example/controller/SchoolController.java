@@ -24,7 +24,7 @@ public class SchoolController {
     @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping("/create/moderator")
     @Operation(summary = "School create", description = "Api used for create new school by moderator")
-    private ResponseEntity<SchoolDTO> createSchool(@RequestBody SchoolCreateDTO dto){
+    public ResponseEntity<SchoolDTO> createSchool(@RequestBody SchoolCreateDTO dto){
         return ResponseEntity.ok(schoolService.createSchool(dto));
     }
 }
