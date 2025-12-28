@@ -21,9 +21,20 @@ public class ProfileRoleService {
         entity.setRoles(ProfileRoleEnum.valueOf(role.name()));
         profileRoleRepository.save(entity);
     }
+    public void createAdmin(String profileId, ProfileAdminRoleEnum role) {
+        ProfileRoleEntity entity = new ProfileRoleEntity();
+        entity.setProfileId(profileId);
+        entity.setRoles(ProfileRoleEnum.valueOf(role.name()));
+        profileRoleRepository.save(entity);
+    }
     public void merge(String profileId, List<ProfileRoleEnum> newList) {
         List<ProfileRoleEnum> oldList = profileRoleRepository.getRoleListByProfileId(profileId);
         newList.stream().filter(n -> !oldList.contains(n)).forEach(pe -> create(profileId, pe)); // create
+        oldList.stream().filter(old -> !newList.contains(old)).forEach(pe -> profileRoleRepository.deleteByIdAndRoleEnum(profileId, pe));
+    }
+    public void mergeAdmin(String profileId, List<ProfileAdminRoleEnum> newList) {
+        List<ProfileRoleEnum> oldList = profileRoleRepository.getRoleListByProfileId(profileId);
+        newList.stream().filter(n -> !oldList.contains(n)).forEach(pe -> createAdmin(profileId, pe)); // create
         oldList.stream().filter(old -> !newList.contains(old)).forEach(pe -> profileRoleRepository.deleteByIdAndRoleEnum(profileId, pe));
     }
     public void createAdmin(String profileId, List<ProfileAdminRoleEnum> roleList) {

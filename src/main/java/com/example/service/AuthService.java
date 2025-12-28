@@ -1,9 +1,12 @@
 package com.example.service;
 
+import com.example.dto.profile.PasswordUpdateDTO;
 import com.example.dto.profile.ProfileInfoDTO;
 import com.example.dto.auth.*;
+import com.example.dto.profile.ProfileUpdateAdminRequestDTO;
 import com.example.dto.profile.ProfileUpdateModeratorRequestDTO;
 import com.example.entity.ProfileEntity;
+import com.example.entity.ProfileRoleEntity;
 import com.example.enums.ProfileRoleEnum;
 import com.example.enums.ProfileStatus;
 import com.example.exp.AppBadException;
@@ -11,16 +14,21 @@ import com.example.exp.UserExist;
 import com.example.exp.UserNotFound;
 import com.example.repository.ProfileRepository;
 import com.example.util.JwtUtil;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.domain.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+
+import static com.example.util.SpringSecurityUtil.currentProfileId;
 
 @Slf4j
 @Service
@@ -144,7 +152,6 @@ public class AuthService {
         return profileDTO;
     }
 
-
     public @Nullable ProfileInfoDTO getByIdModerator(String id) {
         Optional<ProfileEntity> profileEntity = profileRepository.findById(id);
         if (profileEntity.isEmpty()) {
@@ -190,9 +197,9 @@ public class AuthService {
     public @Nullable String updateByModerator(String id, ProfileUpdateModeratorRequestDTO update) {
 
         ProfileEntity entity = get(id);
-        if(update == null) {
+        if (update == null) {
             throw new AppBadException("You did not update any information!");
-        }else if (update.getName() != null) {
+        } else if (update.getName() != null) {
             entity.setFirstname(update.getName());
         } else if (update.getSurname() != null) {
             entity.setLastname(update.getSurname());
@@ -209,9 +216,88 @@ public class AuthService {
         return "Muvaffaqiyatli yangilandi!";
     }
 
+    public @Nullable String updateByAdmins(String id, ProfileUpdateAdminRequestDTO update) {
+        ProfileEntity entity = get(id);
+        if (entity.getRoles().contains(ProfileRoleEnum.ROLE_MODERATOR)) {
+            throw new AppBadException("You cannot update Moderator information! You are ADMIN");
+        }
+        if (update == null) {
+            throw new AppBadException("You did not update any information!");
+        } else if (update.getName() != null) {
+            entity.setFirstname(update.getName());
+        } else if (update.getSurname() != null) {
+            entity.setLastname(update.getSurname());
+        } else if (update.getStatus() != null) {
+            entity.setStatus(update.getStatus());
+        } else if (update.getSchoolId() != null) {
+            entity.setSchoolId(update.getSchoolId());
+        }
+        profileRepository.save(entity); // update
+        if (update.getRoleList() != null) {
+            profileRoleService.mergeAdmin(entity.getId(), update.getRoleList());
+
+        }
+        return "Muvaffaqiyatli yangilandi!";
+    }
+
+
     public ProfileEntity get(String id) {
         return profileRepository.findByIdAndVisibleIsTrue(id).orElseThrow(() -> {
             throw new AppBadException("Profile not found");
         });
+    }
+
+    public Page<ProfileInfoDTO> getProfileList(int page, int size, String schoolId, String role) {
+        // 1. Sahifalash obyektini yaratish (qaysi sahifa, nechta ma'lumot va tartiblash)
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+
+        // 2. Dinamik filter (Specification) orqali bazadan qidirish
+        Specification<ProfileEntity> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(cb.equal(root.get("visible"), true)); // Faqat o'chirilmaganlar
+
+            if (schoolId != null) {
+                predicates.add(cb.equal(root.get("schoolId"), schoolId));
+            }
+
+            if (role != null) {
+                // ProfileRoleEntity bilan Join qilib rolni tekshirish
+                Join<ProfileEntity, ProfileRoleEntity> roleJoin = root.join("roles");
+                predicates.add(cb.equal(roleJoin.get("roles"), role));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        // 3. Bazadan olish va DTO-ga o'tkazish (map qilish)
+        return profileRepository.findAll(spec, pageable).map(this::toDTO);
+    }
+
+    public @Nullable String deleteByModerator(String id) {
+        ProfileEntity entity = get(id);
+        entity.setVisible(false);
+        profileRepository.save(entity);
+        return "Muvaffaqiyatli o'chirildi!";
+    }
+
+    public @Nullable String deleteByAdmin(String id) {
+        ProfileEntity entity = get(id);
+        if (entity.getSchoolId() == null){
+            throw new AppBadException("You cannot delete Moderation, You are ADMIN");
+        }
+        entity.setVisible(false);
+        profileRepository.save(entity);
+
+        return "Muvaffaqiyatli o'chirildi!";
+    }
+
+    public @Nullable String updatePassword( PasswordUpdateDTO update) {
+        ProfileEntity profile = get(currentProfileId());
+        if (!bCryptPasswordEncoder.matches(update.getOldPassword(), profile.getPassword())) {
+            throw new AppBadException("Wrong password");
+        }
+        profile.setPassword(bCryptPasswordEncoder.encode(update.getNewPassword()));
+        profileRepository.save(profile);
+        return "Parol muvaffaqiyatli yangilandi!";
     }
 }
