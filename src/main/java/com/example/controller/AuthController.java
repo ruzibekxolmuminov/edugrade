@@ -1,10 +1,7 @@
 package com.example.controller;
 
-import com.example.dto.profile.PasswordUpdateDTO;
-import com.example.dto.profile.ProfileInfoDTO;
+import com.example.dto.profile.*;
 import com.example.dto.auth.*;
-import com.example.dto.profile.ProfileUpdateAdminRequestDTO;
-import com.example.dto.profile.ProfileUpdateModeratorRequestDTO;
 import com.example.entity.ProfileEntity;
 import com.example.entity.ProfileRoleEntity;
 import com.example.service.AuthService;
@@ -99,5 +96,15 @@ public class AuthController {
     @Operation(summary = "Update password", description = "Api used for update password")
     public ResponseEntity<String> updatePassword(@RequestBody PasswordUpdateDTO update){
         return ResponseEntity.ok(profileService.updatePassword(update));
+    }
+
+    @PreAuthorize("hasAllRoles('MODERATOR')")
+    @PostMapping("/filter")
+    public ResponseEntity<Page<ProfileInfoDTO>> filter(
+            @RequestBody ProfileFilterDTO filterDTO,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        return ResponseEntity.ok(profileService.filter(filterDTO, page, size));
     }
 }

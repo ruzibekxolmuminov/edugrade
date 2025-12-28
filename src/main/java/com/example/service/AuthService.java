@@ -1,10 +1,7 @@
 package com.example.service;
 
-import com.example.dto.profile.PasswordUpdateDTO;
-import com.example.dto.profile.ProfileInfoDTO;
+import com.example.dto.profile.*;
 import com.example.dto.auth.*;
-import com.example.dto.profile.ProfileUpdateAdminRequestDTO;
-import com.example.dto.profile.ProfileUpdateModeratorRequestDTO;
 import com.example.entity.ProfileEntity;
 import com.example.entity.ProfileRoleEntity;
 import com.example.enums.ProfileRoleEnum;
@@ -299,5 +296,57 @@ public class AuthService {
         profile.setPassword(bCryptPasswordEncoder.encode(update.getNewPassword()));
         profileRepository.save(profile);
         return "Parol muvaffaqiyatli yangilandi!";
+    }
+
+
+    public Page<ProfileInfoDTO> filter(ProfileFilterDTO filterDTO, int page, int size) {
+        // 1. Sahifalash va tartiblash (Yaratilgan sanasi bo'yicha kamayish tartibida)
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+
+        // 2. Dinamik Specification (WHERE shartlarini yig'ish)
+        Specification<ProfileEntity> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            // Faqat o'chirilmaganlarni olish
+            predicates.add(cb.equal(root.get("visible"), true));
+
+            // Matnli qidiruv (Ism, Familiya, Username)
+            if (filterDTO.getQuery() != null && !filterDTO.getQuery().isBlank()) {
+                String searchKeyword = "%" + filterDTO.getQuery().toLowerCase() + "%";
+                Predicate firstname = cb.like(cb.lower(root.get("firstname")), searchKeyword);
+                Predicate lastname = cb.like(cb.lower(root.get("lastname")), searchKeyword);
+                predicates.add(cb.or(firstname, lastname));
+            }
+
+            // Maktab bo'yicha filter
+            if (filterDTO.getSchoolId() != null) {
+                predicates.add(cb.equal(root.get("schoolId"), filterDTO.getSchoolId()));
+            }
+
+            // Status bo'yicha filter
+            if (filterDTO.getStatus() != null) {
+                predicates.add(cb.equal(root.get("status"), filterDTO.getStatus()));
+            }
+
+            // Rol bo'yicha filter (Join orqali)
+            if (filterDTO.getRole() != null) {
+                Join<ProfileEntity, ProfileRoleEntity> roleJoin = root.join("roles");
+                predicates.add(cb.equal(roleJoin.get("roles"), filterDTO.getRole()));
+            }
+
+            // Sana oralig'i (From - To)
+            if (filterDTO.getCreatedDateFrom() != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("createdDate"), filterDTO.getCreatedDateFrom().atStartOfDay()));
+            }
+            if (filterDTO.getCreatedDateTo() != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("createdDate"), filterDTO.getCreatedDateTo().atTime(23, 59, 59)));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        Page<ProfileEntity> entityPage = profileRepository.findAll(spec, pageable);
+
+        return entityPage.map(this::toDTO);
     }
 }
