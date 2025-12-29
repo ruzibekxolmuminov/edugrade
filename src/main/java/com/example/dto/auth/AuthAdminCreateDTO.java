@@ -18,6 +18,7 @@ public class AuthAdminCreateDTO {
     private LocalDate birthDate;
     private String pinfl;
     private String passportSeries;
+    private String groupId;
     private String passportNumber;
     private List<ProfileAdminRoleEnum> roles;
 }

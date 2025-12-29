@@ -1,6 +1,8 @@
 package com.example.repository;
 
 import com.example.entity.GroupEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +15,5 @@ public interface GroupRepository extends JpaRepository<GroupEntity, String> {
 
     Optional<GroupEntity> getByIdAndVisibleTrue(String id);
 
-    List<GroupEntity> findAllBySchoolIdAndVisibleTrue(String schoolId);
+    Page<GroupEntity> findAllBySchoolIdAndVisibleTrue(String schoolId, Pageable pageable);
 }

@@ -1,12 +1,16 @@
 package com.example.controller;
 
-import com.example.dto.GroupCreateDTO;
-import com.example.dto.GroupDTO;
-import com.example.dto.GroupUpdateDTO;
+import com.example.dto.BulkAssignDTO;
+import com.example.dto.GroupProfileDTO;
+import com.example.dto.group.GroupCreateDTO;
+import com.example.dto.group.GroupDTO;
+import com.example.dto.group.GroupUpdateDTO;
+import com.example.dto.profile.ProfileInfoDTO;
 import com.example.service.GroupService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +55,18 @@ public class GroupController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get-list/admin/{schoolId}")
     @Operation(summary = "Get by school Id", description = "Api used for get group by school id")
-    public ResponseEntity<List<GroupDTO>> getGroupBySchoolId(@PathVariable("schoolId") String schoolId) {
-        return ResponseEntity.ok(groupService.getAllBySchoolId(schoolId));
+    public ResponseEntity<Page<GroupDTO>> getGroupBySchoolId(
+            @PathVariable("schoolId") String schoolId,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        return ResponseEntity.ok(groupService.getAllBySchoolId(schoolId, page, size));
+    }
+
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/students/{groupId}")
+    public ResponseEntity<List<GroupProfileDTO>> getStudents(@PathVariable String groupId) {
+        return ResponseEntity.ok(groupService.getStudentsByGroup(groupId));
     }
 }

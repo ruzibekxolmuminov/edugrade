@@ -1,0 +1,38 @@
+### CREATE
+POST localhost:8080/v1/subject/create/moderator
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMjQ4OTEsImV4cCI6MTc2NzExMTI5MX0.cPEVSsyF5QWkl2lUpYdO5jaG5obI2Y-iMAO0pY8d7KNyQrE-s7w52RXKlM0LkqDnX0GOY_g2O4mj282A8qa78Q
+Content-Type: application/json
+
+{
+  "name": "kimyo",
+  "description": "test 1",
+  "category": "TABIIY"
+}
+
+### GET BY ID
+GET localhost:8080/v1/subject/get-list/moderator
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMjQ4OTEsImV4cCI6MTc2NzExMTI5MX0.cPEVSsyF5QWkl2lUpYdO5jaG5obI2Y-iMAO0pY8d7KNyQrE-s7w52RXKlM0LkqDnX0GOY_g2O4mj282A8qa78Q
+
+### UPDATE
+PUT localhost:8080/v1/subject/update/moderator/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMjQ4OTEsImV4cCI6MTc2NzExMTI5MX0.cPEVSsyF5QWkl2lUpYdO5jaG5obI2Y-iMAO0pY8d7KNyQrE-s7w52RXKlM0LkqDnX0GOY_g2O4mj282A8qa78Q
+Content-Type: application/json
+
+{
+  "name": "matematika"
+}
+
+### DELETE
+DELETE localhost:8080/v1/subject/delete/moderator/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMjQ4OTEsImV4cCI6MTc2NzExMTI5MX0.cPEVSsyF5QWkl2lUpYdO5jaG5obI2Y-iMAO0pY8d7KNyQrE-s7w52RXKlM0LkqDnX0GOY_g2O4mj282A8qa78Q
+
+### ASSIGN TEACHER
+POST localhost:8080/v1/subject/assign-teacher/admin
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
+Content-Type: application/json
+
+{
+  "teacherId": "720a1ecc-12bb-4643-b69e-d8d7fcfdb11d",
+  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
+  "subjectId": 1
+}

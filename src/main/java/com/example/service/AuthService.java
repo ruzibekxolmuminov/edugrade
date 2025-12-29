@@ -111,6 +111,7 @@ public class AuthService {
         createProfile.setSchoolId(profile.getSchoolId());
         createProfile.setPatronymic(profile.getPatronymic());
         createProfile.setStatus(ProfileStatus.ACTIVE);
+        createProfile.setGroupId(profile.getGroupId());
         createProfile.setVisible(true);
         profileRepository.save(createProfile);
         profileRoleService.createAdmin(createProfile.getId(), profile.getRoles());

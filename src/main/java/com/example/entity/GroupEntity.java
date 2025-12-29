@@ -14,13 +14,13 @@ import java.time.LocalDateTime;
 public class GroupEntity {
 
     @Id
-    @GeneratedValue(generator = "UUID")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "level")
+    @Enumerated(EnumType.STRING)
     private GroupLevel level;
 
     @Column(name = "visible")

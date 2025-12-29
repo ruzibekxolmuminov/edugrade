@@ -1,16 +1,20 @@
 package com.example.service;
 
-import com.example.dto.GroupCreateDTO;
-import com.example.dto.GroupDTO;
-import com.example.dto.GroupUpdateDTO;
-import com.example.entity.FacultyEntity;
+import com.example.dto.GroupProfileDTO;
+import com.example.dto.group.GroupCreateDTO;
+import com.example.dto.group.GroupDTO;
+import com.example.dto.group.GroupUpdateDTO;
+import com.example.dto.profile.ProfileInfoDTO;
 import com.example.entity.GroupEntity;
+import com.example.entity.ProfileEntity;
 import com.example.exp.AppBadException;
 import com.example.exp.Exist;
 import com.example.repository.GroupRepository;
-import org.hibernate.annotations.NotFound;
+import com.example.repository.ProfileRepository;
+import jakarta.transaction.Transactional;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,6 +26,8 @@ import java.util.stream.Collectors;
 public class GroupService {
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private ProfileRepository profileRepository;
 
     public @Nullable GroupDTO create(GroupCreateDTO group) {
         Optional<GroupEntity> isExist = groupRepository.findByNameAndFacultyIdAndMentorIdAndSchoolIdAndVisibleTrue(group.getName(),group.getFacultyId(),group.getMentorId(),group.getSchoolId());
@@ -45,6 +51,7 @@ public class GroupService {
         GroupDTO groupDTO = new GroupDTO();
         groupDTO.setId(groupEntity.getId());
         groupDTO.setName(groupEntity.getName());
+        groupDTO.setLevel(groupEntity.getLevel());
         groupDTO.setFacultyId(groupEntity.getFacultyId());
         groupDTO.setMentorId(groupEntity.getMentorId());
         groupDTO.setSchoolId(groupEntity.getSchoolId());
@@ -89,11 +96,60 @@ public class GroupService {
         return toDTO(entity);
     }
 
-    public @Nullable List<GroupDTO> getAllBySchoolId(String schoolId) {
-        List<GroupEntity> entities = groupRepository.findAllBySchoolIdAndVisibleTrue(schoolId);
+    public String assignStudentToGroup(String studentId, String groupId) {
+        checkGroupExists(groupId);
+        ProfileEntity student = profileRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("O'quvchi topilmadi"));
 
-        return entities.stream()
+        student.setGroupId(groupId);
+        profileRepository.save(student);
+        return "O'quvchi guruhga biriktirildi";
+    }
+
+    // 6.7 Bulk Assign Students
+    @Transactional
+    public String bulkAssign(List<String> studentIds, String groupId) {
+        checkGroupExists(groupId);
+
+        for (String studentId : studentIds) {
+            profileRepository.findById(studentId).ifPresent(student -> {
+                student.setGroupId(groupId);
+                profileRepository.save(student);
+            });
+        }
+        return studentIds.size() + " ta o'quvchi muvaffaqiyatli guruhga qo'shildi";
+    }
+
+    // 6.8 Get Students by Group
+    public List<GroupProfileDTO> getStudentsByGroup(String groupId) {
+        checkGroupExists(groupId);
+        List<ProfileEntity> entities = profileRepository.findAllByGroupIdAndVisibleTrue(groupId);
+
+        return entities.stream().map(entity -> {
+            GroupProfileDTO dto = new GroupProfileDTO();
+            dto.setId(entity.getId());
+            dto.setName(entity.getFirstname());
+            dto.setSurname(entity.getLastname());
+            dto.setPatronymic(entity.getPatronymic());
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    private void checkGroupExists(String groupId) {
+        if (!groupRepository.existsById(groupId)) {
+            throw new RuntimeException("Guruh topilmadi!");
+        }
+    }
+
+    public PageImpl<GroupDTO> getAllBySchoolId(String schoolId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+
+        Page<GroupEntity> pageObj = groupRepository.findAllBySchoolIdAndVisibleTrue(schoolId, pageable);
+
+        List<GroupDTO> dtoList = pageObj.getContent().stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
+
+        return new PageImpl<>(dtoList, pageable, pageObj.getTotalElements());
     }
 }

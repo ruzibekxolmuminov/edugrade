@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -19,7 +20,5 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity, String>,
     Page<ProfileEntity> findAllWithRoles(Pageable pageable);
     @Query("from ProfileEntity as p join ProfileRoleEntity as pr on p.id = pr.profileId where p.id = ?1 and pr.roles = 'ROLE_MODERATOR'")
     Optional<ProfileEntity> isModerator(String id);
-
-    @Query("from ProfileEntity as p join ProfileRoleEntity as pr on p.id = pr.profileId where p.id = ?1 and pr.roles = 'ROLE_ADMIN'")
-    Optional<ProfileEntity> isAdmin(String s);
+    List<ProfileEntity> findAllByGroupIdAndVisibleTrue(String groupId);
 }

@@ -42,7 +42,12 @@ public class ProfileEntity {
     private ProfileGender gender;
     @Column(name = "school_id")
     private String schoolId;
+    @Column(name = "group_id")
+    private String groupId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id", insertable = false, updatable = false)
+    private GroupEntity group;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id", insertable = false, updatable = false)
     private SchoolEntity school;

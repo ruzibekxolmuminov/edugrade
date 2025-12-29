@@ -1,0 +1,33 @@
+### CREATE GROUP
+POST localhost:8080/v1/group/create/admin
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
+Content-Type: application/json
+
+{
+  "name": "group 101",
+  "level": "FIRST",
+  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
+  "facultyId": "46709427-28d4-41e9-aa08-d845795172f4",
+  "mentorId": "720a1ecc-12bb-4643-b69e-d8d7fcfdb11d"
+}
+
+### UPDATE
+PUT localhost:8080/v1/group/update/admin/7081c246-d3a2-45e7-96dc-95e2ebf961a7
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
+Content-Type: application/json
+
+{
+  "name": "group 101"
+}
+
+### GET BY ID
+GET localhost:8080/v1/group/get-by-id/admin/7081c246-d3a2-45e7-96dc-95e2ebf961a7
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
+
+### GET ALL
+GET localhost:8080/v1/group/get-list/admin/6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
+
+### GET STUDENT BY GROUP
+GET localhost:8080/v1/group/students/7081c246-d3a2-45e7-96dc-95e2ebf961a7
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
