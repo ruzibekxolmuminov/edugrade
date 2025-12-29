@@ -1,9 +1,9 @@
 package com.example.service;
 
-import com.example.dto.FacultyCreateDTO;
-import com.example.dto.FacultyDTO;
-import com.example.dto.FacultyFullInfoDTO;
-import com.example.dto.FacultyUpdateDTO;
+import com.example.dto.faculty.FacultyCreateDTO;
+import com.example.dto.faculty.FacultyDTO;
+import com.example.dto.faculty.FacultyFullInfoDTO;
+import com.example.dto.faculty.FacultyUpdateDTO;
 import com.example.entity.FacultyEntity;
 import com.example.exp.AppBadException;
 import com.example.exp.Exist;
@@ -12,7 +12,6 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

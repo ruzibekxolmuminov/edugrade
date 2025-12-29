@@ -1,9 +1,9 @@
 package com.example.controller;
 
-import com.example.dto.FacultyCreateDTO;
-import com.example.dto.FacultyDTO;
-import com.example.dto.FacultyFullInfoDTO;
-import com.example.dto.FacultyUpdateDTO;
+import com.example.dto.faculty.FacultyCreateDTO;
+import com.example.dto.faculty.FacultyDTO;
+import com.example.dto.faculty.FacultyFullInfoDTO;
+import com.example.dto.faculty.FacultyUpdateDTO;
 import com.example.service.FacultyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
