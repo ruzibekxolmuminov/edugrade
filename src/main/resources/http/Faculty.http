@@ -1,0 +1,27 @@
+### CREATE FACULTY
+POST localhost:8080/v1/faculty/create/admin
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
+Content-Type: application/json
+
+{
+  "name": "test 3",
+  "description": "test 2",
+  "school_id": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e"
+}
+
+### GET LIST
+GET localhost:8080/v1/faculty/get-list/admin/6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
+
+### UPDATE
+PUT localhost:8080/v1/faculty/update/admin/8a55c690-a74f-4ac0-91d0-4921e4cf5825
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
+Content-Type: application/json
+
+{
+  "facultyName": "test 2"
+}
+
+### DELETE
+DELETE localhost:8080/v1/faculty/delete/admin/8a55c690-a74f-4ac0-91d0-4921e4cf5825
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA

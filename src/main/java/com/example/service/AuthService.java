@@ -7,7 +7,7 @@ import com.example.entity.ProfileRoleEntity;
 import com.example.enums.profile.ProfileRoleEnum;
 import com.example.enums.profile.ProfileStatus;
 import com.example.exp.AppBadException;
-import com.example.exp.UserExist;
+import com.example.exp.Exist;
 import com.example.exp.UserNotFound;
 import com.example.repository.ProfileRepository;
 import com.example.util.JwtUtil;
@@ -48,7 +48,7 @@ public class AuthService {
                 profileRoleService.deleteRoleByProfileId(existProfile.getId());
                 profileRepository.deleteById(existProfile.getId());
             } else {
-                throw new UserExist("With this same Pinfl, PassportNumber user is existed");
+                throw new Exist("With this same Pinfl, PassportNumber user is existed");
             }
         }
         ProfileEntity createProfile = new ProfileEntity();
@@ -96,7 +96,7 @@ public class AuthService {
                 profileRoleService.deleteRoleByProfileId(existProfile.getId());
                 profileRepository.deleteById(existProfile.getId());
             } else {
-                throw new UserExist("With this Pinfl, PassportNumber and PassportSeries user is existed");
+                throw new Exist("With this Pinfl, PassportNumber and PassportSeries user is existed");
             }
         }
         ProfileEntity createProfile = new ProfileEntity();

@@ -3,11 +3,10 @@ package com.example.service;
 import com.example.dto.school.SchoolCreateDTO;
 import com.example.dto.school.SchoolDTO;
 import com.example.dto.school.SchoolUpdateDTO;
-import com.example.entity.ProfileEntity;
 import com.example.entity.SchoolEntity;
 import com.example.enums.SchoolStatus;
 import com.example.exp.AppBadException;
-import com.example.exp.UserExist;
+import com.example.exp.Exist;
 import com.example.repository.SchoolRepository;
 import jakarta.persistence.criteria.Predicate;
 import org.jspecify.annotations.Nullable;
@@ -33,7 +32,7 @@ public class SchoolService {
     public @Nullable SchoolDTO createSchool(SchoolCreateDTO dto) {
         Optional<SchoolEntity> school = schoolRepository.findByNameAndNumberAndAddress(dto.getName(), dto.getNumber(), dto.getAddress());
         if (school.isPresent()) {
-            throw new UserExist("School with this information is exist");
+            throw new Exist("School with this information is exist");
         }
 
         SchoolEntity schoolEntity = new SchoolEntity();

@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "passportNumber": "12345679",
-  "password": "123456789"
+  "password": "12345678"
 }
 
 ### CREATE ADMIN
