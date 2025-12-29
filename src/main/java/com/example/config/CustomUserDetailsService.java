@@ -1,7 +1,7 @@
 package com.example.config;
 
 import com.example.entity.ProfileEntity;
-import com.example.enums.ProfileRoleEnum;
+import com.example.enums.profile.ProfileRoleEnum;
 import com.example.exp.AppBadException;
 import com.example.repository.ProfileRepository;
 import com.example.repository.ProfileRoleRepository;

@@ -2,7 +2,7 @@ package com.example.util;
 
 
 import com.example.dto.JwtDTO;
-import com.example.enums.ProfileRoleEnum;
+import com.example.enums.profile.ProfileRoleEnum;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

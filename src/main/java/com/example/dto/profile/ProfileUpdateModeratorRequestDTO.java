@@ -1,9 +1,7 @@
 package com.example.dto.profile;
 
-import com.example.enums.ProfileAdminRoleEnum;
-import com.example.enums.ProfileModeratorEnum;
-import com.example.enums.ProfileRoleEnum;
-import com.example.enums.ProfileStatus;
+import com.example.enums.profile.ProfileRoleEnum;
+import com.example.enums.profile.ProfileStatus;
 import lombok.Data;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.enums;
+package com.example.enums.profile;
 
 public enum ProfileRoleEnum {
     ROLE_STUDENT, ROLE_TEACHER, ROLE_ADMIN, ROLE_MODERATOR

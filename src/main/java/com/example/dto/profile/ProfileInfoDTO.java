@@ -1,7 +1,7 @@
 package com.example.dto.profile;
 
-import com.example.enums.ProfileRoleEnum;
-import com.example.enums.ProfileStatus;
+import com.example.enums.profile.ProfileRoleEnum;
+import com.example.enums.profile.ProfileStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;

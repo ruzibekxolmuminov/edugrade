@@ -1,9 +1,9 @@
 package com.example.service;
 
 import com.example.entity.ProfileRoleEntity;
-import com.example.enums.ProfileAdminRoleEnum;
-import com.example.enums.ProfileModeratorEnum;
-import com.example.enums.ProfileRoleEnum;
+import com.example.enums.profile.ProfileAdminRoleEnum;
+import com.example.enums.profile.ProfileModeratorEnum;
+import com.example.enums.profile.ProfileRoleEnum;
 import com.example.repository.ProfileRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

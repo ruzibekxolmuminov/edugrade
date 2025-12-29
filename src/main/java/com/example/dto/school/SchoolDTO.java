@@ -1,5 +1,6 @@
-package com.example.dto;
+package com.example.dto.school;
 
+import com.example.enums.SchoolStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ public class SchoolDTO {
     private String address;
     private Integer number;
     private Boolean visible;
+    private SchoolStatus status;
     private LocalDateTime createdAt;
     private String attachId;
     private Integer regionId;

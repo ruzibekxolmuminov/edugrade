@@ -1,7 +1,7 @@
 package com.example.repository;
 
 import com.example.entity.ProfileRoleEntity;
-import com.example.enums.ProfileRoleEnum;
+import com.example.enums.profile.ProfileRoleEnum;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

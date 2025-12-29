@@ -1,6 +1,6 @@
 package com.example.entity;
 
-import com.example.enums.ProfileRoleEnum;
+import com.example.enums.profile.ProfileRoleEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

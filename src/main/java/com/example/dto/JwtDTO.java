@@ -1,6 +1,6 @@
 package com.example.dto;
 
-import com.example.enums.ProfileRoleEnum;
+import com.example.enums.profile.ProfileRoleEnum;
 import lombok.Getter;
 import lombok.Setter;
 

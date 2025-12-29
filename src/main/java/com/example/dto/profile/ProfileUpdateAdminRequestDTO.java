@@ -1,7 +1,7 @@
 package com.example.dto.profile;
 
-import com.example.enums.ProfileAdminRoleEnum;
-import com.example.enums.ProfileStatus;
+import com.example.enums.profile.ProfileAdminRoleEnum;
+import com.example.enums.profile.ProfileStatus;
 import lombok.Getter;
 import lombok.Setter;
 

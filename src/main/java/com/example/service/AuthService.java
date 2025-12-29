@@ -4,8 +4,8 @@ import com.example.dto.profile.*;
 import com.example.dto.auth.*;
 import com.example.entity.ProfileEntity;
 import com.example.entity.ProfileRoleEntity;
-import com.example.enums.ProfileRoleEnum;
-import com.example.enums.ProfileStatus;
+import com.example.enums.profile.ProfileRoleEnum;
+import com.example.enums.profile.ProfileStatus;
 import com.example.exp.AppBadException;
 import com.example.exp.UserExist;
 import com.example.exp.UserNotFound;
@@ -167,7 +167,7 @@ public class AuthService {
         dto.setPatronymic(entity.getPatronymic());
         dto.setStatus(entity.getStatus());
         dto.setSchoolId(entity.getSchoolId());
-        dto.setSchoolName(schoolService.getById(entity.getSchoolId()));
+        dto.setSchoolName(schoolService.getNameById(entity.getSchoolId()));
         dto.setRoleList(profileRoleService.getByProfileId(entity.getId()));
 
         return dto;

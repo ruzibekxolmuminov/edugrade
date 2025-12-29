@@ -1,8 +1,7 @@
 package com.example.entity;
 
-import com.example.enums.ProfileGender;
-import com.example.enums.ProfileRoleEnum;
-import com.example.enums.ProfileStatus;
+import com.example.enums.profile.ProfileGender;
+import com.example.enums.profile.ProfileStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 

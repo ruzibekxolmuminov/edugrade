@@ -1,6 +1,6 @@
 ### CREATE SCHOOl
 POST localhost:8080/v1/school/create/moderator
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY4NDUzNjIsImV4cCI6MTc2NjkzMTc2Mn0.AJjZuPBjTZr1AtP3WjLbnKYUZSdKoyWaY96pHPPkKCj_sqqUElr9jXI1I_pijv0zw7eYDLhCpmoI-ORYzWlqfQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMDk2NzYsImV4cCI6MTc2NzA5NjA3Nn0.i3HAXQxYAeapjfj1QFO2g25B27QnrtXwPhpwP1yT8zv4khI_CkALej8wf8EKuV7V03CKlDUHAUPzAjlKyaBEeA
 Content-Type: application/json
 
 {
@@ -11,3 +11,23 @@ Content-Type: application/json
   "regionId": 1
 }
 
+### UPDATE SCHOOL
+PUT localhost:8080/v1/school/update/moderator/6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMDk2NzYsImV4cCI6MTc2NzA5NjA3Nn0.i3HAXQxYAeapjfj1QFO2g25B27QnrtXwPhpwP1yT8zv4khI_CkALej8wf8EKuV7V03CKlDUHAUPzAjlKyaBEeA
+Content-Type: application/json
+
+{
+  "name": "test 1"
+}
+
+### UPDATE STATUS
+PUT localhost:8080/v1/school/update-status/moderator/6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e?status=ACTIVE
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMDk2NzYsImV4cCI6MTc2NzA5NjA3Nn0.i3HAXQxYAeapjfj1QFO2g25B27QnrtXwPhpwP1yT8zv4khI_CkALej8wf8EKuV7V03CKlDUHAUPzAjlKyaBEeA
+
+### GET SCHOOl
+GET localhost:8080/v1/school/get-by-id/moderator/6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMDk2NzYsImV4cCI6MTc2NzA5NjA3Nn0.i3HAXQxYAeapjfj1QFO2g25B27QnrtXwPhpwP1yT8zv4khI_CkALej8wf8EKuV7V03CKlDUHAUPzAjlKyaBEeA
+
+### PAGINATION/FILTER
+GET localhost:8080/v1/school/list/moderator?name=test 1&regionId=1&status=ACTIVE
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMDk2NzYsImV4cCI6MTc2NzA5NjA3Nn0.i3HAXQxYAeapjfj1QFO2g25B27QnrtXwPhpwP1yT8zv4khI_CkALej8wf8EKuV7V03CKlDUHAUPzAjlKyaBEeA

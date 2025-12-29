@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.example.enums.SchoolStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,6 +23,8 @@ public class SchoolEntity {
     private Boolean visible;
     @Column(name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
+    @Enumerated(EnumType.STRING)
+    private SchoolStatus status;
     @Column(name = "region_id")
     private Integer regionId;
     @ManyToOne(fetch = FetchType.LAZY)

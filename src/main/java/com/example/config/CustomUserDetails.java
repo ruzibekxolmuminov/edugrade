@@ -1,7 +1,7 @@
 package com.example.config;
 
-import com.example.enums.ProfileRoleEnum;
-import com.example.enums.ProfileStatus;
+import com.example.enums.profile.ProfileRoleEnum;
+import com.example.enums.profile.ProfileStatus;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

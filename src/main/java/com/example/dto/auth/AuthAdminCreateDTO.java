@@ -1,7 +1,7 @@
 package com.example.dto.auth;
 
-import com.example.enums.ProfileAdminRoleEnum;
-import com.example.enums.ProfileGender;
+import com.example.enums.profile.ProfileAdminRoleEnum;
+import com.example.enums.profile.ProfileGender;
 import lombok.Data;
 
 import java.time.LocalDate;

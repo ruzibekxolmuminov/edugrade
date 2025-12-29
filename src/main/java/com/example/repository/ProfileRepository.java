@@ -1,14 +1,10 @@
 package com.example.repository;
 
 import com.example.entity.ProfileEntity;
-import com.example.enums.ProfileStatus;
-import jakarta.transaction.Transactional;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 

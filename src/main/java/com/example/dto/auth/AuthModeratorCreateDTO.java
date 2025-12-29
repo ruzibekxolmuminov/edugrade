@@ -1,12 +1,10 @@
 package com.example.dto.auth;
 
-import com.example.enums.ProfileGender;
-import com.example.enums.ProfileModeratorEnum;
-import jakarta.validation.constraints.NotBlank;
+import com.example.enums.profile.ProfileGender;
+import com.example.enums.profile.ProfileModeratorEnum;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.jspecify.annotations.Nullable;
 
 import java.time.LocalDate;
 import java.util.List;
