@@ -1,12 +1,11 @@
 package com.example.service;
 
-import com.example.dto.ScheduleDTO;
+import com.example.dto.schedule.ScheduleDTO;
 import com.example.dto.schedule.ScheduleCreateDTO;
 import com.example.dto.schedule.ScheduleUpdateDTO;
 import com.example.entity.ScheduleEntity;
 import com.example.exp.AppBadException;
 import com.example.repository.ScheduleRepository;
-import lombok.Setter;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

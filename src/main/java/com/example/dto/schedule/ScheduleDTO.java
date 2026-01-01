@@ -1,4 +1,4 @@
-package com.example.dto;
+package com.example.dto.schedule;
 
 import com.example.enums.WeekDay;
 import lombok.Data;

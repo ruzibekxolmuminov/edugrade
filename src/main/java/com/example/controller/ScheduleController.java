@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.dto.ScheduleDTO;
+import com.example.dto.schedule.ScheduleDTO;
 import com.example.dto.schedule.ScheduleCreateDTO;
 import com.example.dto.schedule.ScheduleUpdateDTO;
 import com.example.service.ScheduleService;
