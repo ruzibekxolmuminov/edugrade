@@ -3,13 +3,13 @@ POST localhost:8080/v1/auth/login
 Content-Type: application/json
 
 {
-  "passportNumber": "1234567",
-  "password": "12345"
+  "passportNumber": "123456701",
+  "password": "12345678"
 }
 
 ### CREATE ADMIN
 POST localhost:8080/v1/auth/registration/moderator
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMDk2NzYsImV4cCI6MTc2NzA5NjA3Nn0.i3HAXQxYAeapjfj1QFO2g25B27QnrtXwPhpwP1yT8zv4khI_CkALej8wf8EKuV7V03CKlDUHAUPzAjlKyaBEeA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcxODg4NTEsImV4cCI6MTc2NzI3NTI1MX0.pTyDOjzCKzCC07rTv_vftC3aQNggqr4UjUtKsY7bG9gK8GTp8gnGhK1rXXQSTO4ovZUht3BvMNfalHSGc0u2Xg
 Content-Type: application/json
 
 {
@@ -19,16 +19,16 @@ Content-Type: application/json
   "birthDate": "2003-11-14",
   "password": "12345678",
   "gender": "MALE",
-  "pinfl": "12345678901018",
+  "pinfl": "12345678901015",
   "passportSeries": "AB",
-  "passportNumber": "12345670",
+  "passportNumber": "123456701",
   "roles": ["ROLE_ADMIN"],
   "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e"
 }
 
 ### CREATE TEACHER OR STUDENT
 POST localhost:8080/v1/auth/registration/admin
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MCIsInN1YiI6IjEyMzQ1NjcwIiwiaWF0IjoxNzY3MDI0MDAzLCJleHAiOjE3NjcxMTA0MDN9.PaC_nQZH3pyQWTgiXXTF2v9EfFux8-S2qQLmfsq38QSRlqMW8PLsj5ybyl3Q0DWWkNiVO5WT7Kr3uhYQjQ8PXw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3NjcxODkwODksImV4cCI6MTc2NzI3NTQ4OX0.aY4Q34y5zXrbR0yGswFjyrZ7Ufe7j_j9jVQOZiPAj2N6hLVa-jjTWfssNlGWa5hR80yhqEFptsKsvKph9o7wnw
 Content-Type: application/json
 
 {
@@ -38,25 +38,25 @@ Content-Type: application/json
   "birthDate": "2003-11-14",
   "password": "12345",
   "gender": "MALE",
-  "pinfl": "6",
+  "pinfl": "62",
   "passportSeries": "AB",
-  "passportNumber": "6",
+  "passportNumber": "62",
   "roles": ["ROLE_STUDENT"],
   "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
   "groupId": "7081c246-d3a2-45e7-96dc-95e2ebf961a7"
 }
 
 ### GET BY ID (MODERATOR)
-GET localhost:8080/v1/auth/get/moderator/a808584d-6a6b-4c34-9c43-7f97eff0979c
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY5MjA1ODMsImV4cCI6MTc2NzAwNjk4M30.PC_X-3PUULTzc2J3RQec2HSNCO-aPlnx_HoUR0ucunfVGg66YWRKN5ZtDpE8PBlcD-CZFHEGQvQXE1d9zbDyTQ
+GET localhost:8080/v1/auth/get/moderator/5637883b-d3f1-43c6-97e4-3f647c2be3e1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcxODg4NTEsImV4cCI6MTc2NzI3NTI1MX0.pTyDOjzCKzCC07rTv_vftC3aQNggqr4UjUtKsY7bG9gK8GTp8gnGhK1rXXQSTO4ovZUht3BvMNfalHSGc0u2Xg
 
 ### GET BY ID (ADMIN)
-GET localhost:8080/v1/auth/get/admin/50c20719-05a9-437e-98a0-7a0d91d7bb1d
-Authorization:  Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NSIsInN1YiI6IjEyMzQ1IiwiaWF0IjoxNzY2OTIyMjAxLCJleHAiOjE3NjcwMDg2MDF9.1JfnouuIBcqsMYliuNN9A9d0zSkuzXLmZZU4u9TD6qhJTpfMN7BsU3ZJZkyZQhqCaTNGpiR2E024BG2710Jskw
+GET localhost:8080/v1/auth/get/admin/5637883b-d3f1-43c6-97e4-3f647c2be3e1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3NjcxODkwODksImV4cCI6MTc2NzI3NTQ4OX0.aY4Q34y5zXrbR0yGswFjyrZ7Ufe7j_j9jVQOZiPAj2N6hLVa-jjTWfssNlGWa5hR80yhqEFptsKsvKph9o7wnw
 
 ### UPDATE (MODERATOR)
-PUT localhost:8080/v1/auth/update/moderator/178cf42c-7adc-46cb-ae3a-7462dc586aea
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY5MjA1ODMsImV4cCI6MTc2NzAwNjk4M30.PC_X-3PUULTzc2J3RQec2HSNCO-aPlnx_HoUR0ucunfVGg66YWRKN5ZtDpE8PBlcD-CZFHEGQvQXE1d9zbDyTQ
+PUT localhost:8080/v1/auth/update/moderator/5637883b-d3f1-43c6-97e4-3f647c2be3e1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcxODg4NTEsImV4cCI6MTc2NzI3NTI1MX0.pTyDOjzCKzCC07rTv_vftC3aQNggqr4UjUtKsY7bG9gK8GTp8gnGhK1rXXQSTO4ovZUht3BvMNfalHSGc0u2Xg
 Content-Type: application/json
 
 {
@@ -65,8 +65,8 @@ Content-Type: application/json
 }
 
 ### UPDATE (ADMIN)
-PUT localhost:8080/v1/auth/update/admin/a3435343-a864-4209-84f9-690bf0f70976
-Authorization:  Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NSIsInN1YiI6IjEyMzQ1IiwiaWF0IjoxNzY2OTIyMjAxLCJleHAiOjE3NjcwMDg2MDF9.1JfnouuIBcqsMYliuNN9A9d0zSkuzXLmZZU4u9TD6qhJTpfMN7BsU3ZJZkyZQhqCaTNGpiR2E024BG2710Jskw
+PUT localhost:8080/v1/auth/update/admin/5637883b-d3f1-43c6-97e4-3f647c2be3e1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3NjcxODkwODksImV4cCI6MTc2NzI3NTQ4OX0.aY4Q34y5zXrbR0yGswFjyrZ7Ufe7j_j9jVQOZiPAj2N6hLVa-jjTWfssNlGWa5hR80yhqEFptsKsvKph9o7wnw
 Content-Type: application/json
 
 {
@@ -74,12 +74,12 @@ Content-Type: application/json
 }
 
 ### LIST
-GET localhost:8080/v1/auth/list?page=0&size=10&school_id=7cf08c00-d823-433d-adc6-c05ac07cd21b&role=ROLE_TEACHER
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
+GET localhost:8080/v1/auth/list
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcxODg4NTEsImV4cCI6MTc2NzI3NTI1MX0.pTyDOjzCKzCC07rTv_vftC3aQNggqr4UjUtKsY7bG9gK8GTp8gnGhK1rXXQSTO4ovZUht3BvMNfalHSGc0u2Xg
 
 ### DELETE (MODERATOR)
-DELETE localhost:8080/v1/auth/moderator/delete/178cf42c-7adc-46cb-ae3a-7462dc586aea
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY5MjA1ODMsImV4cCI6MTc2NzAwNjk4M30.PC_X-3PUULTzc2J3RQec2HSNCO-aPlnx_HoUR0ucunfVGg66YWRKN5ZtDpE8PBlcD-CZFHEGQvQXE1d9zbDyTQ
+DELETE localhost:8080/v1/auth/moderator/delete/5637883b-d3f1-43c6-97e4-3f647c2be3e1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcxODg4NTEsImV4cCI6MTc2NzI3NTI1MX0.pTyDOjzCKzCC07rTv_vftC3aQNggqr4UjUtKsY7bG9gK8GTp8gnGhK1rXXQSTO4ovZUht3BvMNfalHSGc0u2Xg
 
 ### DELETE (ADMIN)
 DELETE localhost:8080/v1/auth/admin/delete/a3435343-a864-4209-84f9-690bf0f70976
@@ -88,7 +88,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlc
 ### UPDATE PASSWORD
 PUT localhost:8080/v1/auth/update/password
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY2OTMwMDAwLCJleHAiOjE3NjcwMTY0MDB9.vltcgQrOQQoHY1RVaxyW5My-r_EL_ejcul17nYj5f87lZbhHy21Efeop8-nQM8yrbeISy9GZEppvJAvsEdMNoA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3NjcxODkwODksImV4cCI6MTc2NzI3NTQ4OX0.aY4Q34y5zXrbR0yGswFjyrZ7Ufe7j_j9jVQOZiPAj2N6hLVa-jjTWfssNlGWa5hR80yhqEFptsKsvKph9o7wnw
 
 {
   "oldPassword": "12345678",
@@ -97,13 +97,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlc
 
 ### FILTER
 POST localhost:8080/v1/auth/filter
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjY5MjA1ODMsImV4cCI6MTc2NzAwNjk4M30.PC_X-3PUULTzc2J3RQec2HSNCO-aPlnx_HoUR0ucunfVGg66YWRKN5ZtDpE8PBlcD-CZFHEGQvQXE1d9zbDyTQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcxODg4NTEsImV4cCI6MTc2NzI3NTI1MX0.pTyDOjzCKzCC07rTv_vftC3aQNggqr4UjUtKsY7bG9gK8GTp8gnGhK1rXXQSTO4ovZUht3BvMNfalHSGc0u2Xg
 Content-Type: application/json
 
 {
-  "query": "asilbek",
   "role": "ROLE_ADMIN",
-  "schoolId": "7cf08c00-d823-433d-adc6-c05ac07cd21b",
   "status": "ACTIVE"
 }
 
