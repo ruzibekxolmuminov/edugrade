@@ -1,0 +1,29 @@
+@studentToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfU1RVREVOVCJdLCJ1c2VybmFtZSI6IjYyMyIsInN1YiI6IjYyMyIsImlhdCI6MTc2NzUxOTEwMCwiZXhwIjoxNzY3NjA1NTAwfQ.r9m2WPTcTSoxbZO7-9LG0B3l1rwihaaKQY7Uwy3-JRErRDiaJpvO549wI1MPlbcsDMEK2GVSqHM5MMVyzFhDVQ
+@teacherToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVEVBQ0hFUiJdLCJ1c2VybmFtZSI6IjYyIiwic3ViIjoiNjIiLCJpYXQiOjE3Njc1MTkwNzQsImV4cCI6MTc2NzYwNTQ3NH0.tqtE_YC9UcOFWFvCLGgL1VBrH6v_3a8rFqareONPlcIJqOQGTkLHhkp5U66_wbWnX8Trzm4WcDn_b2bR7RdGWQ
+@adminToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc1MTg1NDYsImV4cCI6MTc2NzYwNDk0Nn0.gNp4cWxlbIi4wA56aet4TeRT41D9nu8REuVFKinQk3QqmVrEyp8_pcGY4fTy4hyK-5hzuAWjl6RdkmsTmp1G_w
+
+### 14.1 Tadbir yaratish (Admin)
+POST http://localhost:8080/v1/event/create
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
+  "title": "Futbol Musobaqasi 2026",
+  "description": "Maktablararo futbol turniri",
+  "imageId": "image-uuid-here",
+  "eventDate": "2026-05-20T10:00:00",
+  "type": "SPORT"
+}
+
+### 14.2 Tadbirga ro'yxatdan o'tish (Student)
+POST http://localhost:8080/v1/event/register/1
+Authorization: Bearer {{studentToken}}
+
+### 14.3 Tadbirlar ro'yxatini olish
+GET http://localhost:8080/v1/event/list/6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e?status=ACTIVE&page=0&size=10
+Authorization: Bearer {{adminToken}}
+
+### Ishtirokchilarning 1-sahifasini ko'rish (10 ta ishtirokchi)
+GET http://localhost:8080/v1/event/1/participants?page=0&size=10
+Authorization: Bearer {{adminToken}}

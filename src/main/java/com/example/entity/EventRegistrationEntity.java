@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class EventRegistrationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "event_id")
     private Integer eventId;
@@ -22,12 +22,4 @@ public class EventRegistrationEntity {
     private String studentId;
 
     private LocalDateTime registrationDate = LocalDateTime.now();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id", insertable = false, updatable = false)
-    private EventEntity event;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", insertable = false, updatable = false)
-    private ProfileEntity student;
 }

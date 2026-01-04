@@ -17,7 +17,7 @@ public class EventEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "school_id")
+    @Column(name = "school_id", nullable = false)
     private String schoolId;
 
     private String title;
@@ -33,5 +33,7 @@ public class EventEntity {
     private EventType type; // SPORT, EDUCATION
 
     @Enumerated(EnumType.STRING)
-    private GeneralStatus status; // ACTIVE, FINISHED, CANCELLED
+    private GeneralStatus status = GeneralStatus.ACTIVE;
+
+    private LocalDateTime createdDate = LocalDateTime.now();
 }

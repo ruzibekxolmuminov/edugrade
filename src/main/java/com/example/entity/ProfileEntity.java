@@ -22,6 +22,10 @@ public class ProfileEntity {
     private String lastname;
     @Column(name = "birthdate")
     private LocalDate birthdate;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "email")
+    private String email;
     @Column(name = "patronymic")
     private String patronymic;
     @Column(name = "passport_series")

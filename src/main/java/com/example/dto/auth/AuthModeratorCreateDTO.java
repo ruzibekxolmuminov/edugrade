@@ -20,6 +20,8 @@ public class AuthModeratorCreateDTO {
     @NotNull(message = "Parol kiritilmadi!")
     @Size(min = 8, max = 20)
     private String password;
+    private String phone;
+    private String email;
     @NotNull(message = "Jins kiritilmadi!")
     private ProfileGender gender;
     @NotNull(message = "Maktab id si kiritilmadi!")

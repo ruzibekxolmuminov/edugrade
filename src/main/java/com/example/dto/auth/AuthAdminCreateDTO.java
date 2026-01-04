@@ -17,6 +17,8 @@ public class AuthAdminCreateDTO {
     private String schoolId;
     private LocalDate birthDate;
     private String pinfl;
+    private String phone;
+    private String email;
     private String passportSeries;
     private String passportNumber;
     private List<ProfileAdminRoleEnum> roles;
