@@ -2,11 +2,13 @@ package com.example.service;
 
 import com.example.dto.AchievementDTO;
 import com.example.entity.AchievementEntity;
+import com.example.exp.Exist;
 import com.example.repository.AchievementRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.util.SpringSecurityUtil.currentProfileId;
@@ -18,6 +20,11 @@ public class AchievementService {
 
     // 12.1 Create Achievement
     public AchievementDTO create(AchievementDTO dto) {
+        Optional<AchievementEntity> isExist = achievementRepository.findByAchievementDateAndTitleAndDescriptionAndTypeAndVisibleTrue(dto.getAchievementDate(), dto.getTitle(), dto.getDescription(), dto.getType());
+        if (isExist.isPresent()) {
+            throw new Exist("Achievement is existed!");
+        }
+
         AchievementEntity entity = new AchievementEntity();
         entity.setStudentId(currentProfileId());
         entity.setTitle(dto.getTitle());

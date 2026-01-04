@@ -1,0 +1,34 @@
+@host = localhost:8080
+@moderatorToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3Njc1MTgzNTIsImV4cCI6MTc2NzYwNDc1Mn0.klVdSZzjvmnEwjd1kiZGwn2N_tNiY-Ci2iemj0Sjfz_SHTdT6NNetgg7p4CD6DNgZIIXXEeSiyJla8Km__9cvw
+@studentToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfU1RVREVOVCJdLCJ1c2VybmFtZSI6IjYyMyIsInN1YiI6IjYyMyIsImlhdCI6MTc2NzUxOTEwMCwiZXhwIjoxNzY3NjA1NTAwfQ.r9m2WPTcTSoxbZO7-9LG0B3l1rwihaaKQY7Uwy3-JRErRDiaJpvO549wI1MPlbcsDMEK2GVSqHM5MMVyzFhDVQ
+@teacherToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVEVBQ0hFUiJdLCJ1c2VybmFtZSI6IjYyIiwic3ViIjoiNjIiLCJpYXQiOjE3Njc1MTkwNzQsImV4cCI6MTc2NzYwNTQ3NH0.tqtE_YC9UcOFWFvCLGgL1VBrH6v_3a8rFqareONPlcIJqOQGTkLHhkp5U66_wbWnX8Trzm4WcDn_b2bR7RdGWQ
+@adminToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc1MTg1NDYsImV4cCI6MTc2NzYwNDk0Nn0.gNp4cWxlbIi4wA56aet4TeRT41D9nu8REuVFKinQk3QqmVrEyp8_pcGY4fTy4hyK-5hzuAWjl6RdkmsTmp1G_w
+
+
+### O'qituvchiga anonim fikr qoldirish
+POST http://{{host}}/v1/feedback/post
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "teacherId": "f58eb132-788f-4a84-b9b6-35640fb79bf8",
+  "rate": 5,
+  "content": "Darslarni juda qiziqarli o'tadilar, yangi metodikalardan foydalanadilar.",
+  "isAnonymous": true
+}
+
+###  O'qituvchiga ochiq fikr qoldirish (Ismi ko'rinadi)
+POST http://{{host}}/v1/feedback/post
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "teacherId": "f58eb132-788f-4a84-b9b6-35640fb79bf8",
+  "rate": 4,
+  "content": "Yaxshi tushuntiradilar, lekin uyga vazifa ko'p beriladi.",
+  "isAnonymous": false
+}
+
+### O'qituvchi o'ziga berilgan barcha fikrlarni ko'rishi
+GET http://{{host}}/v1/feedback/teacher/f58eb132-788f-4a84-b9b6-35640fb79bf8?page=0&size=10
+Authorization: Bearer {{teacherToken}}

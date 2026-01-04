@@ -1,0 +1,41 @@
+### O'zgaruvchilar
+@host = localhost:8080
+@moderatorToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3Njc1MTgzNTIsImV4cCI6MTc2NzYwNDc1Mn0.klVdSZzjvmnEwjd1kiZGwn2N_tNiY-Ci2iemj0Sjfz_SHTdT6NNetgg7p4CD6DNgZIIXXEeSiyJla8Km__9cvw
+@studentToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfU1RVREVOVCJdLCJ1c2VybmFtZSI6IjYyMyIsInN1YiI6IjYyMyIsImlhdCI6MTc2NzUxOTEwMCwiZXhwIjoxNzY3NjA1NTAwfQ.r9m2WPTcTSoxbZO7-9LG0B3l1rwihaaKQY7Uwy3-JRErRDiaJpvO549wI1MPlbcsDMEK2GVSqHM5MMVyzFhDVQ
+@teacherToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVEVBQ0hFUiJdLCJ1c2VybmFtZSI6IjYyIiwic3ViIjoiNjIiLCJpYXQiOjE3Njc1MTkwNzQsImV4cCI6MTc2NzYwNTQ3NH0.tqtE_YC9UcOFWFvCLGgL1VBrH6v_3a8rFqareONPlcIJqOQGTkLHhkp5U66_wbWnX8Trzm4WcDn_b2bR7RdGWQ
+@adminToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc1MTg1NDYsImV4cCI6MTc2NzYwNDk0Nn0.gNp4cWxlbIi4wA56aet4TeRT41D9nu8REuVFKinQk3QqmVrEyp8_pcGY4fTy4hyK-5hzuAWjl6RdkmsTmp1G_w
+
+
+### 12.1 Yangi yutuq qo'shish (Achievement)
+POST http://{{host}}/v1/portfolio/achievement
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "title": "Matematika Olimpiadasi 1-o'rin",
+  "description": "Viloyat miqyosida o'tkazilgan matematika fanidan olimpiada g'olibi",
+  "attachId": "f782c9e2-3a5b-4d1e-8b1a-9c8d7e6f5a4b",
+  "achievementDate": "2025-12-20",
+  "type": "OLYMPIAD"
+}
+
+### 12.2 Yutuqni tahrirlash
+PUT http://{{host}}/v1/portfolio/achievement/{{achievementId}}
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "title": "Matematika Olimpiadasi (Respublika bosqichi)",
+  "description": "Respublika miqyosida faxrli 2-o'rin",
+  "attachId": "new-attach-uuid"
+}
+
+### 12.3 Yutuqni o'chirish (Soft delete)
+DELETE http://{{host}}/v1/portfolio/achievement/3f273fc1-e184-4fb5-87d0-bf3d0d54ac0e
+Authorization: Bearer {{studentToken}}
+
+### 12.4 O'quvchining barcha yutuqlarini ko'rish
+GET http://{{host}}/v1/portfolio/student/
+Authorization: Bearer {{studentToken}}
+
+

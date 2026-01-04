@@ -51,7 +51,20 @@ public class GroupController {
     public ResponseEntity<GroupDTO> getGroupById(@PathVariable("id") String id) {
         return ResponseEntity.ok(groupService.getGroup(id));
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/assign-student")
+    public ResponseEntity<String> assignStudent(
+            @RequestParam("studentId") String studentId,
+            @RequestParam("groupId") String groupId) {
+        return ResponseEntity.ok(groupService.assignStudentToGroup(studentId, groupId));
+    }
 
+    // 6.7 Bulk Assign
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/bulk-assign-students")
+    public ResponseEntity<String> bulkAssign(@RequestBody BulkAssignDTO dto) {
+        return ResponseEntity.ok(groupService.bulkAssign(dto.getStudentIds(), dto.getGroupId()));
+    }
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get-list/admin/{schoolId}")
     @Operation(summary = "Get by school Id", description = "Api used for get group by school id")

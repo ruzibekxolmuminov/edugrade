@@ -46,10 +46,16 @@ public class SpringConfig {
     };
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)  {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // 1. CSRF ni o'chirib qo'yamiz (Stateless API uchun shart)
+        http.csrf(AbstractHttpConfigurer::disable);
+
+        // 2. CORS ni o'chirib turing (Frontend bilan ulaganda kerak bo'ladi)
+        http.cors(AbstractHttpConfigurer::disable);
+
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers(AUTH_WHITELIST).permitAll() // Whitelistdagilarga ruxsat
+                .anyRequest().authenticated()                // Qolganlari uchun login shart
         ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

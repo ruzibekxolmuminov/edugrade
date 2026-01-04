@@ -3,13 +3,13 @@ POST localhost:8080/v1/auth/login
 Content-Type: application/json
 
 {
-  "passportNumber": "123456701",
-  "password": "12345678"
+  "passportNumber": "62",
+  "password": "12345"
 }
 
 ### CREATE ADMIN
 POST localhost:8080/v1/auth/registration/moderator
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcxODg4NTEsImV4cCI6MTc2NzI3NTI1MX0.pTyDOjzCKzCC07rTv_vftC3aQNggqr4UjUtKsY7bG9gK8GTp8gnGhK1rXXQSTO4ovZUht3BvMNfalHSGc0u2Xg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3Njc1MTgzNTIsImV4cCI6MTc2NzYwNDc1Mn0.klVdSZzjvmnEwjd1kiZGwn2N_tNiY-Ci2iemj0Sjfz_SHTdT6NNetgg7p4CD6DNgZIIXXEeSiyJla8Km__9cvw
 Content-Type: application/json
 
 {
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ### CREATE TEACHER OR STUDENT
 POST localhost:8080/v1/auth/registration/admin
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3NjcxODkwODksImV4cCI6MTc2NzI3NTQ4OX0.aY4Q34y5zXrbR0yGswFjyrZ7Ufe7j_j9jVQOZiPAj2N6hLVa-jjTWfssNlGWa5hR80yhqEFptsKsvKph9o7wnw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc1MTg1NDYsImV4cCI6MTc2NzYwNDk0Nn0.gNp4cWxlbIi4wA56aet4TeRT41D9nu8REuVFKinQk3QqmVrEyp8_pcGY4fTy4hyK-5hzuAWjl6RdkmsTmp1G_w
 Content-Type: application/json
 
 {
@@ -38,12 +38,11 @@ Content-Type: application/json
   "birthDate": "2003-11-14",
   "password": "12345",
   "gender": "MALE",
-  "pinfl": "62",
+  "pinfl": "623",
   "passportSeries": "AB",
-  "passportNumber": "62",
+  "passportNumber": "623",
   "roles": ["ROLE_STUDENT"],
-  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
-  "groupId": "7081c246-d3a2-45e7-96dc-95e2ebf961a7"
+  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e"
 }
 
 ### GET BY ID (MODERATOR)
