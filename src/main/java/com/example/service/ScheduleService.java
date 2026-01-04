@@ -19,11 +19,11 @@ public class ScheduleService {
     private ScheduleRepository scheduleRepository;
 
     public @Nullable ScheduleDTO create(ScheduleCreateDTO scheduleDTO) {
-        Optional<ScheduleEntity> isExist = scheduleRepository.findByRoomNumberAndStartTimeAndEndTimeAndWeekDay(scheduleDTO.getRoomNumber(),scheduleDTO.getStartTime(),scheduleDTO.getEndTime(), scheduleDTO.getWeekDay());
+        Optional<ScheduleEntity> isExist = scheduleRepository.findByRoomNumberAndStartTimeAndEndTimeAndWeekDay(scheduleDTO.getRoomNumber(), scheduleDTO.getStartTime(), scheduleDTO.getEndTime(), scheduleDTO.getWeekDay());
         if (isExist.isPresent()) {
             throw new AppBadException("The schedule already exists!");
         }
-        Optional<ScheduleEntity> isTeacherBusy = scheduleRepository.findByTeacherIdAndSubjectIdAndWeekDayAndStartTimeAndEndTime(scheduleDTO.getTeacherId(), scheduleDTO.getSubjectId(), scheduleDTO.getWeekDay(),scheduleDTO.getStartTime(), scheduleDTO.getEndTime());
+        Optional<ScheduleEntity> isTeacherBusy = scheduleRepository.findByTeacherIdAndSubjectIdAndWeekDayAndStartTimeAndEndTime(scheduleDTO.getTeacherId(), scheduleDTO.getSubjectId(), scheduleDTO.getWeekDay(), scheduleDTO.getStartTime(), scheduleDTO.getEndTime());
         if (isTeacherBusy.isPresent()) {
             throw new AppBadException("Teacher is busy at that moment!");
         }
@@ -66,17 +66,17 @@ public class ScheduleService {
         ScheduleEntity schedule = getById(id);
         if (scheduleUpdateDTO.getStartTime() != null) {
             schedule.setStartTime(scheduleUpdateDTO.getStartTime());
-        }else if (scheduleUpdateDTO.getEndTime() != null) {
+        } else if (scheduleUpdateDTO.getEndTime() != null) {
             schedule.setEndTime(scheduleUpdateDTO.getEndTime());
-        }else if (scheduleUpdateDTO.getWeekDay() != null) {
+        } else if (scheduleUpdateDTO.getWeekDay() != null) {
             schedule.setWeekDay(scheduleUpdateDTO.getWeekDay());
-        }else if (scheduleUpdateDTO.getGroupId() != null) {
+        } else if (scheduleUpdateDTO.getGroupId() != null) {
             schedule.setGroupId(scheduleUpdateDTO.getGroupId());
-        }else if (scheduleUpdateDTO.getTeacherId() != null) {
+        } else if (scheduleUpdateDTO.getTeacherId() != null) {
             schedule.setTeacherId(scheduleUpdateDTO.getTeacherId());
-        }else if (scheduleUpdateDTO.getSubjectId() != null) {
+        } else if (scheduleUpdateDTO.getSubjectId() != null) {
             schedule.setSubjectId(scheduleUpdateDTO.getSubjectId());
-        }else if (scheduleUpdateDTO.getPairNumber() != null) {
+        } else if (scheduleUpdateDTO.getPairNumber() != null) {
             schedule.setPairNumber(scheduleUpdateDTO.getPairNumber());
         }
         scheduleRepository.save(schedule);
@@ -85,7 +85,7 @@ public class ScheduleService {
 
     private ScheduleEntity getById(String id) {
         Optional<ScheduleEntity> isExist = scheduleRepository.findByIdAndVisibleTrue(id);
-        if (isExist.isEmpty()){
+        if (isExist.isEmpty()) {
             throw new AppBadException("Schedule not found!");
         }
         return isExist.get();
@@ -100,13 +100,14 @@ public class ScheduleService {
 
     public @Nullable ScheduleDTO getByGroupId(String id) {
         Optional<ScheduleEntity> schedule = scheduleRepository.getByGroupId(id);
-        if (schedule.isEmpty()){
+        if (schedule.isEmpty()) {
             throw new AppBadException("Schedule with group Id not found!");
         }
 
         return toDTO(schedule.get());
     }
-    public @Nullable ScheduleDTO getByTeacherId(String id) {
 
+    public @Nullable ScheduleDTO getByTeacherId(String id) {
+        return new ScheduleDTO();
     }
 }

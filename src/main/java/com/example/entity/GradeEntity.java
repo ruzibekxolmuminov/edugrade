@@ -45,4 +45,5 @@ public class GradeEntity {
     // Audit: Kim tomonidan o'zgartirildi
     private String updatedBy;
     private LocalDateTime updatedDate;
+    private Boolean visible;
 }

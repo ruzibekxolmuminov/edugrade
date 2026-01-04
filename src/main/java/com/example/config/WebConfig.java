@@ -9,9 +9,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000") // Sizning frontend portingiz
+                .allowedOrigins("https://4wfx4jl0vna3b22sa0d3x2wbkqtaso8z916c8y3xxt62po9r5y-h845251650.scf.usercontent.goog")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowCredentials(true);
+                .allowCredentials(true)
+                .maxAge(3600); // Keshni optimallashtirish uchun
     }
 }
