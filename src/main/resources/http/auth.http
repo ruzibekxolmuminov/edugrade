@@ -3,7 +3,7 @@ POST localhost:8080/v1/auth/login
 Content-Type: application/json
 
 {
-  "passportNumber": "62",
+  "passportNumber": "623",
   "password": "12345"
 }
 

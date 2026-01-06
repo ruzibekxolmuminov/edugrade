@@ -3,6 +3,7 @@ package com.example.repository;
 import com.example.entity.ScheduleEntity;
 import com.example.enums.WeekDay;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalTime;
@@ -20,4 +21,8 @@ public interface ScheduleRepository extends JpaRepository<ScheduleEntity, String
     List<ScheduleEntity> getByGroupId(String id);
 
     List<ScheduleEntity> findAllByGroupIdAndSubjectIdAndVisibleTrue(String groupId, Integer subjectId);
+
+    List<ScheduleEntity> getByTeacherId(String id);
+
+
 }

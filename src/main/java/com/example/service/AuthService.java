@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.dto.profile.*;
 import com.example.dto.auth.*;
+import com.example.entity.ChatMember;
 import com.example.entity.ProfileEntity;
 import com.example.entity.ProfileRoleEntity;
 import com.example.enums.profile.ProfileRoleEnum;
@@ -9,6 +10,7 @@ import com.example.enums.profile.ProfileStatus;
 import com.example.exp.AppBadException;
 import com.example.exp.Exist;
 import com.example.exp.UserNotFound;
+import com.example.repository.GroupRepository;
 import com.example.repository.ProfileRepository;
 import com.example.util.JwtUtil;
 import jakarta.persistence.criteria.Join;
@@ -123,6 +125,8 @@ public class AuthService {
         createProfile.setVisible(true);
         profileRepository.save(createProfile);
         profileRoleService.createAdmin(createProfile.getId(), profile.getRoles());
+
+
         return toResponseDTO(createProfile);
     }
 

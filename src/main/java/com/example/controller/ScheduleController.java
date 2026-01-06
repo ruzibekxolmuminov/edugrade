@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.example.util.SpringSecurityUtil.currentProfileId;
+
 @RestController
 @RequestMapping("/v1/schedule")
 @Tag(name = "Schedule APIs", description = "Api for schedule control")
@@ -48,10 +50,22 @@ public class ScheduleController {
         return ResponseEntity.ok(scheduleService.getByGroupId(id));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/get-by-teacher-id/admin/{id}")
+    @PreAuthorize("hasAllRoles('TEACHER')")
+    @GetMapping("/get-teacher")
     @Operation(summary = "Get schedule", description = "Api used for get schedule by teacher id")
-    public ResponseEntity<ScheduleDTO> getTeacherSchedule(@PathVariable("id") String id) {
+    public ResponseEntity<List<ScheduleDTO>> getTeacherSchedule() {
+        String id = currentProfileId();
         return ResponseEntity.ok(scheduleService.getByTeacherId(id));
     }
+
+    @PreAuthorize("hasRole('STUDENT')")
+    @GetMapping("/get-student")
+    @Operation(summary = "Get schedule", description = "Api used for get schedule by student")
+    public ResponseEntity<List<ScheduleDTO>> getStudentSchedule() {
+        String id = currentProfileId();
+        return ResponseEntity.ok(scheduleService.getBySubjectId(id));
+    }
+
+
+
 }

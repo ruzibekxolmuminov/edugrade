@@ -40,6 +40,9 @@ public class SpringConfig {
             "/v1/attach/open/{id}",
             "/v1/attach/upload",
             "/v1/attach/download/{id}",
+            "/v1/api/chat/**",
+            "/ws-chat/**",
+            "/**",
             "/swagger-ui/**",
             "/v3/api-docs",
             "/v3/api-docs/**"

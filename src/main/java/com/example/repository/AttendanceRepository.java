@@ -33,9 +33,10 @@ public interface AttendanceRepository extends JpaRepository<AttendanceEntity, St
 
     @Query("SELECT a FROM AttendanceEntity a " +
             "WHERE a.studentId = :studentId " +
-            "AND FUNCTION('MONTH', a.date) = :monthValue " +
-            "AND FUNCTION('YEAR', a.date) = :year")
+            "AND EXTRACT(MONTH FROM a.date) = :monthValue " +
+            "AND EXTRACT(YEAR FROM a.date) = :year")
     List<AttendanceEntity> findByStudentIdAndMonthAndYear(
             @Param("studentId") String studentId,
             @Param("monthValue") int monthValue,
-            @Param("year") int year);}
+            @Param("year") int year);
+}

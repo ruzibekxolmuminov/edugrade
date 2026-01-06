@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Chat Test - EDUGRADE.UZ</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+    <style>
+        .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+        .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: #cfd9e7; border-radius: 10px; }
+        .dark .scrollbar-thin::-webkit-scrollbar-thumb { background: #374151; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-[#0d131b] dark:text-white overflow-hidden h-screen flex">
+
+<aside class="w-[280px] bg-white dark:bg-[#1a2634] border-r border-[#cfd9e7] dark:border-gray-700 flex flex-col h-full shrink-0">
+    <div class="p-6 flex flex-col h-full">
+        <div class="flex flex-col gap-8 flex-grow">
+            <div class="flex gap-3 items-center">
+                <div class="flex items-center justify-center size-10 rounded-full bg-blue-100 dark:bg-blue-500/10">
+                    <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">school</span>
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="text-[#0d131b] dark:text-white text-base font-bold">EDUGRADE.UZ</h1>
+                    <p class="text-[#4c6c9a] dark:text-gray-400 text-xs">Test Mode</p>
+                </div>
+            </div>
+            <div class="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                <p class="text-[10px] text-yellow-800 dark:text-yellow-200 leading-tight">
+                    <strong>TEST QOLLANMA:</strong><br>
+                    Xabar yuborishda format:<br>
+                    <code class="font-bold">ID:GROUP:XABAR</code><br>
+                    Masalan: <code class="bg-white px-1">2:1:Salom</code>
+                </p>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+    <header class="flex-none px-6 py-5 border-b border-[#cfd9e7] dark:border-gray-700 bg-white dark:bg-[#1a2634] flex justify-between items-center z-10">
+        <h2 class="text-[#0d131b] dark:text-white text-2xl font-bold italic text-primary">Live Debug Chat</h2>
+    </header>
+
+    <div class="flex-1 flex overflow-hidden">
+        <div class="flex-1 flex flex-col bg-[#f9fafb] dark:bg-background-dark overflow-hidden relative">
+
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-8 flex flex-col gap-6 scrollbar-thin">
+            </div>
+
+            <div class="p-6 bg-white dark:bg-[#1a2634] border-t border-[#cfd9e7] dark:border-gray-700">
+                <div class="bg-[#f0f4f8] dark:bg-background-dark rounded-xl p-2 border border-transparent focus-within:border-primary/50 transition-all">
+                    <textarea id="message-input"
+                              class="w-full bg-transparent border-none focus:ring-0 p-2 text-[#0d131b] dark:text-white placeholder-gray-400 min-h-[80px] resize-none"
+                              placeholder="Formatda yozing: senderId:groupId:xabar (masalan: 1:1:Salom)"></textarea>
+                    <div class="flex justify-between items-center px-2 pb-1">
+                        <span class="text-[10px] text-gray-400">Tizim: Real-time WebSocket Test</span>
+                        <button onclick="sendMessage()" class="bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-md">
+                            Send <span class="material-symbols-outlined text-sm">send</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+<script>
+    let stompClient = null;
+    let currentSessionUser = 1; // Oxirgi yuborgan odamni eslab qoladi
+
+    document.addEventListener('DOMContentLoaded', () => {
+        connectWebSocket();
+
+        document.getElementById('message-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    });
+
+    function connectWebSocket() {
+        const socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, (frame) => {
+            // Test uchun UUID kanaliga ulanamiz
+            const testGroupId = "70cba3d8-6802-417f-8335-9e16a658e76e";
+            stompClient.subscribe('/topic/group.' + testGroupId, (message) => {
+                const msg = JSON.parse(message.body);
+                renderMessage(msg);
+            });
+        });
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('message-input');
+        const rawValue = input.value.trim();
+
+        if (rawValue && stompClient && stompClient.connected) {
+            const parts = rawValue.split(':');
+
+            if (parts.length < 3) {
+                alert("Format: senderUUID:groupUUID:xabar");
+                return;
+            }
+
+            // UUID-larni shunchaki string sifatida olamiz, parseInt ishlatmaymiz!
+            const sId = parts[0].trim();
+            const gId = parts[1].trim();
+            const content = parts.slice(2).join(':');
+
+            const payload = {
+                senderId: sId,   // Endi bu "087bfba3-..." string bo'ladi
+                groupId: gId,    // Endi bu "70cba3d8-..." string bo'ladi
+                content: content,
+                type: 'CHAT'
+            };
+
+            currentSessionUser = sId; // Sessionni eslab qolish uchun
+
+            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(payload));
+            input.value = '';
+        }
+    }
+
+    function renderMessage(message) {
+        const container = document.getElementById('chat-messages');
+
+        // Agar xabar biz hozir yozgan ID dan kelgan bo'lsa - O'NGDA
+        const isMe = message.senderId === currentSessionUser;
+
+        // Backenddan kelgan senderName ni olamiz
+        const senderLabel = message.senderName || "User " + message.senderId;
+        const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+        const html = `
+            <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} animate-fadeIn mb-2">
+                <div class="flex items-center gap-2 mb-1 px-1">
+                    <span class="text-[10px] font-bold text-gray-500 uppercase">
+                        ${isMe ? 'Siz (' + senderLabel + ')' : senderLabel}
+                    </span>
+                </div>
+                <div class="${isMe ? 'bg-primary text-white rounded-tr-none' : 'bg-white dark:bg-[#253241] text-[#0d131b] dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded-tl-none'} rounded-2xl px-5 py-3 shadow-sm max-w-[75%]">
+                    <p class="text-sm leading-relaxed">${message.content}</p>
+                </div>
+                <div class="flex items-center gap-1 mt-1 text-[10px] text-[#4c6c9a]">
+                    <span>${time}</span>
+                    ${isMe ? '<span class="material-symbols-outlined text-[14px]">done_all</span>' : ''}
+                </div>
+            </div>`;
+
+        container.insertAdjacentHTML('beforeend', html);
+        container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>

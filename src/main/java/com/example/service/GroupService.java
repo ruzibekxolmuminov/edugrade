@@ -5,10 +5,13 @@ import com.example.dto.group.GroupCreateDTO;
 import com.example.dto.group.GroupDTO;
 import com.example.dto.group.GroupUpdateDTO;
 import com.example.dto.profile.ProfileInfoDTO;
+import com.example.entity.ChatMember;
 import com.example.entity.GroupEntity;
 import com.example.entity.ProfileEntity;
+import com.example.enums.ChatRole;
 import com.example.exp.AppBadException;
 import com.example.exp.Exist;
+import com.example.repository.ChatMemberRepository;
 import com.example.repository.GroupRepository;
 import com.example.repository.ProfileRepository;
 import jakarta.transaction.Transactional;
@@ -27,6 +30,8 @@ public class GroupService {
     @Autowired
     private GroupRepository groupRepository;
     @Autowired
+    private ChatMemberRepository chatMemberRepository;
+    @Autowired
     private ProfileRepository profileRepository;
 
     public @Nullable GroupDTO create(GroupCreateDTO group) {
@@ -43,6 +48,13 @@ public class GroupService {
         groupEntity.setSchoolId(group.getSchoolId());
         groupEntity.setVisible(true);
         groupRepository.save(groupEntity);
+
+        ChatMember teacherMember = new ChatMember();
+        teacherMember.setGroup(groupEntity);
+        teacherMember.setProfile(profileRepository.getById(group.getMentorId()));
+        teacherMember.setRole(ChatRole.ADMIN);
+        chatMemberRepository.save(teacherMember);
+
         return toDTO(groupEntity);
 
     }
@@ -102,7 +114,13 @@ public class GroupService {
                 .orElseThrow(() -> new RuntimeException("O'quvchi topilmadi"));
 
         student.setGroupId(groupId);
+
         profileRepository.save(student);
+        ChatMember studentMember = new ChatMember();
+        studentMember.setGroup(groupRepository.getById(groupId));
+        studentMember.setProfile(student);
+        studentMember.setRole(ChatRole.MEMBER); // O'quvchi - Member
+        chatMemberRepository.save(studentMember);
         return "O'quvchi guruhga biriktirildi";
     }
 

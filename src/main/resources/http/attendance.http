@@ -42,3 +42,8 @@ Authorization: Bearer {{auth_token}}
 GET http://localhost:8080/v1/attendance/stats/087bfba3-92a6-4995-a43f-9cab0d74e8e6?subjectId=1
 Authorization: Bearer {{auth_token}}
 Accept: application/json
+
+### 1. Talabaning oylik davomat grafigi (Monthly Overview Chart)
+GET http://localhost:8080/v1/attendance/monthly-overview/db112066-8b5c-44ee-bfd4-24ecf8c72f7f
+Authorization: Bearer {{auth_token}}
+Accept: application/json

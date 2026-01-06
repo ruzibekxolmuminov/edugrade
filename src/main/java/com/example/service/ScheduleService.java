@@ -3,8 +3,10 @@ package com.example.service;
 import com.example.dto.schedule.ScheduleDTO;
 import com.example.dto.schedule.ScheduleCreateDTO;
 import com.example.dto.schedule.ScheduleUpdateDTO;
+import com.example.entity.ProfileEntity;
 import com.example.entity.ScheduleEntity;
 import com.example.exp.AppBadException;
+import com.example.repository.ProfileRepository;
 import com.example.repository.ScheduleRepository;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 public class ScheduleService {
     @Autowired
     private ScheduleRepository scheduleRepository;
+    @Autowired
+    private ProfileRepository profileRepository;
 
     public @Nullable ScheduleDTO create(ScheduleCreateDTO scheduleDTO) {
         Optional<ScheduleEntity> isExist = scheduleRepository.findByRoomNumberAndStartTimeAndEndTimeAndWeekDay(scheduleDTO.getRoomNumber(), scheduleDTO.getStartTime(), scheduleDTO.getEndTime(), scheduleDTO.getWeekDay());
@@ -114,7 +118,23 @@ public class ScheduleService {
                 .collect(Collectors.toList());
     }
 
-    public @Nullable ScheduleDTO getByTeacherId(String id) {
-        return new ScheduleDTO();
+    public @Nullable List<ScheduleDTO> getByTeacherId(String id) {
+        List<ScheduleEntity> scheduleList = scheduleRepository.getByTeacherId(id);
+
+        if (scheduleList.isEmpty()) {
+            throw new AppBadException("Schedule with group Id not found!");
+        }
+
+        // 2. Entity ro'yxatini DTO ro'yxatiga o'girish
+        return scheduleList.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+    public @Nullable List<ScheduleDTO> getBySubjectId(String id) {
+        Optional<ProfileEntity> profile = profileRepository.getGroupIdById(id);
+        if (profile.isEmpty()) {
+            throw new AppBadException("Profile with group Id not found!");
+        }
+        return getByGroupId(profile.get().getGroupId());
     }
 }

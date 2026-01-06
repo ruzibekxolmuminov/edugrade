@@ -1,6 +1,7 @@
 package com.example.repository;
 
 import com.example.entity.ProfileEntity;
+import com.example.entity.ScheduleEntity;
 import com.example.enums.profile.ProfileRoleEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -58,4 +59,6 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity, String>,
     // TO'G'RILANGAN QISM: String o'rniga Enum ishlatildi
     @Query("SELECT COUNT(p) FROM ProfileEntity p JOIN ProfileRoleEntity pr ON p.id = pr.profileId WHERE pr.roles = com.example.enums.profile.ProfileRoleEnum.ROLE_TEACHER AND p.visible = true")
     Long countTotalTeachers();
+
+    Optional<ProfileEntity> getGroupIdById(String id);
 }
