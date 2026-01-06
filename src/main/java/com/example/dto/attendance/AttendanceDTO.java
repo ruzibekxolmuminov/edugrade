@@ -11,6 +11,7 @@ public class AttendanceDTO {
     private String id;
     private String studentId;
     private String scheduleId;
+    private Integer subjectId;
     private String schoolId;
     private String groupId;
     private AttendanceStatus status;

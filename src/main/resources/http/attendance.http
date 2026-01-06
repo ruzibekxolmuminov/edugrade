@@ -1,0 +1,44 @@
+@auth_token = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVEVBQ0hFUiJdLCJ1c2VybmFtZSI6IjYyIiwic3ViIjoiNjIiLCJpYXQiOjE3Njc2MDYxNzEsImV4cCI6MTc2NzY5MjU3MX0.7DGitmGUzios1NT0FjLSPLmyJozTVzDfIGezhYUSOYnhSNhCTZcpLARNSnLPfpkltOyWFwSzujcWgfC5vwXAzw
+
+### 2. Davomatni belgilash (Set Attendance)
+POST http://localhost:8080/v1/attendance/set-attendance/teacher
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVEVBQ0hFUiJdLCJ1c2VybmFtZSI6IjYyIiwic3ViIjoiNjIiLCJpYXQiOjE3Njc2MDY4NjMsImV4cCI6MTc2NzY5MzI2M30.npiwpUH3Ic0ELNtw_Xh2xChwEkipmbYhLFG7y_EjkRY-K_r7Up_egggE9ZtCxE0u6bb5nT3g5LzQnVlI3HCu7w
+Content-Type: application/json
+
+{
+  "studentId": "087bfba3-92a6-4995-a43f-9cab0d74e8e6",
+  "scheduleId": "6bbabc2d-b319-4407-8b02-9277ec4538d3",
+  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
+  "subjectId": 1,
+  "groupId": "70cba3d8-6802-417f-8335-9e16a658e76e",
+  "status": "REASONABLE",
+  "reason": "kasal",
+  "date": "2026-02-10"
+}
+
+### 3. Davomatni yangilash (Update)
+PUT http://localhost:8080/v1/attendance/update/teacher/fe3c4111-e15f-4e4e-93bf-ed444f807deb
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "status": "REASONABLE",
+  "reason": "Sababli (kasallik varaqasi)"
+}
+
+### 4. Talaba bo'yicha davomat ro'yxatini olish
+GET http://localhost:8080/v1/attendance/get-by-student/087bfba3-92a6-4995-a43f-9cab0d74e8e6
+Authorization: Bearer {{auth_token}}
+
+### 5. Guruh bo'yicha davomat ro'yxatini olish
+GET http://localhost:8080/v1/attendance/get-by-group/guruh-uuid-bu-yerga
+Authorization: Bearer {{auth_token}}
+
+### 6. Davomatni o'chirish
+DELETE http://localhost:8080/v1/attendance/delete/teacher/davomat-uuid-bu-yerga
+Authorization: Bearer {{auth_token}}
+
+### Talabaning 95% lik vidjeti uchun ma'lumot olish
+GET http://localhost:8080/v1/attendance/stats/087bfba3-92a6-4995-a43f-9cab0d74e8e6?subjectId=1
+Authorization: Bearer {{auth_token}}
+Accept: application/json

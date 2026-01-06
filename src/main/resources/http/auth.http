@@ -18,6 +18,8 @@ Content-Type: application/json
   "patronymic": "anvarovich",
   "birthDate": "2003-11-14",
   "password": "12345678",
+  "phone": "+998999999999",
+  "email": "test@gmail.com",
   "gender": "MALE",
   "pinfl": "12345678901015",
   "passportSeries": "AB",
@@ -28,20 +30,22 @@ Content-Type: application/json
 
 ### CREATE TEACHER OR STUDENT
 POST localhost:8080/v1/auth/registration/admin
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc1MTg1NDYsImV4cCI6MTc2NzYwNDk0Nn0.gNp4cWxlbIi4wA56aet4TeRT41D9nu8REuVFKinQk3QqmVrEyp8_pcGY4fTy4hyK-5hzuAWjl6RdkmsTmp1G_w
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc2MDY0MzcsImV4cCI6MTc2NzY5MjgzN30.qAIpPkbqsca5ZnOrS12ngUYbsDFJiJhuAhRmQ-cpbKzErnMOgb4G2ZBVhDPosUbaS7aurD_Z9AI5yOPTl2miMA
 Content-Type: application/json
 
 {
   "firstName": "asilbek",
   "lastName": "xolmuminov",
   "patronymic": "anvarovich",
+  "phone": "+998999999999",
+  "email": "test@gmail.com",
   "birthDate": "2003-11-14",
   "password": "12345",
   "gender": "MALE",
-  "pinfl": "623",
+  "pinfl": "6234",
   "passportSeries": "AB",
-  "passportNumber": "623",
-  "roles": ["ROLE_STUDENT"],
+  "passportNumber": "6234",
+  "roles": ["ROLE_TEACHER"],
   "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e"
 }
 

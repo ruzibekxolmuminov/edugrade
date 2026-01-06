@@ -10,6 +10,7 @@ public class AttendanceCreateDTO {
     private String studentId;
     private String scheduleId;
     private String schoolId;
+    private Integer subjectId;
     private String groupId;
     private AttendanceStatus status;
     private String reason;

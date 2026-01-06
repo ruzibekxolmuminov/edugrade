@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -32,7 +33,6 @@ public class ScheduleEntity {
 
     @Column(name = "room_number")
     private String roomNumber;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "week_day", nullable = false)
     private WeekDay weekDay; // MONDAY, TUESDAY ...

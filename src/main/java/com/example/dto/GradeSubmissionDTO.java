@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class GradeSubmissionDTO {
     private Integer submissionId;
-    private Integer gradeValue; // Grade moduliga yuborish uchun
+    private Integer gradeValue;
     private String feedback;
 }

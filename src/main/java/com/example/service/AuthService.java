@@ -63,6 +63,9 @@ public class AuthService {
         createProfile.setSchoolId(profile.getSchoolId());
         createProfile.setPatronymic(profile.getPatronymic());
         createProfile.setStatus(ProfileStatus.ACTIVE);
+        createProfile.setPhone(profile.getPhone());
+        createProfile.setEmail(profile.getEmail());
+        createProfile.setPhotoId(profile.getPhotoId());
         createProfile.setVisible(true);
         profileRepository.save(createProfile);
         profileRoleService.createModerator(createProfile.getId(), profile.getRoles());
@@ -76,6 +79,9 @@ public class AuthService {
         responseDTO.setPinfl(profile.getPinfl());
         responseDTO.setPassportNumber(profile.getPassportNumber());
         responseDTO.setPassportSeries(profile.getPassportSeries());
+        responseDTO.setEmail(profile.getEmail());
+        responseDTO.setPhone(profile.getPhone());
+        responseDTO.setPhotoId(profile.getPhotoId());
         responseDTO.setGender(profile.getGender());
         responseDTO.setFirstName(profile.getFirstname());
         responseDTO.setLastName(profile.getLastname());
@@ -106,6 +112,9 @@ public class AuthService {
         createProfile.setPassportSeries(profile.getPassportSeries());
         createProfile.setBirthdate(profile.getBirthDate());
         createProfile.setGender(profile.getGender());
+        createProfile.setPhone(profile.getPhone());
+        createProfile.setEmail(profile.getEmail());
+        createProfile.setPhotoId(profile.getPhotoId());
         createProfile.setLastname(profile.getLastName());
         createProfile.setFirstname(profile.getFirstName());
         createProfile.setSchoolId(profile.getSchoolId());
@@ -142,6 +151,9 @@ public class AuthService {
         profileDTO.setPassportSeries(profile.getPassportSeries());
         profileDTO.setBirthDate(profile.getBirthdate());
         profileDTO.setPinfl(profile.getPinfl());
+        profileDTO.setPhone(profile.getPhone());
+        profileDTO.setEmail(profile.getEmail());
+        profileDTO.setPhotoId(profile.getPhotoId());
         profileDTO.setRoles(profileRoleService.getByProfileId(profile.getId()));
         profileDTO.setGender(profile.getGender());
         profileDTO.setSchoolId(profile.getSchoolId());
@@ -162,6 +174,9 @@ public class AuthService {
     private ProfileInfoDTO toDTO(ProfileEntity entity) {
         ProfileInfoDTO dto = new ProfileInfoDTO();
         dto.setId(entity.getId());
+        dto.setPhone(entity.getPhone());
+        dto.setEmail(entity.getEmail());
+        dto.setPhoto(entity.getPhotoId());
         dto.setName(entity.getFirstname());
         dto.setSurname(entity.getLastname());
         dto.setPatronymic(entity.getPatronymic());
@@ -348,5 +363,20 @@ public class AuthService {
         Page<ProfileEntity> entityPage = profileRepository.findAll(spec, pageable);
 
         return entityPage.map(this::toDTO);
+    }
+
+    public @Nullable String update(ProfileUpdateDetailRequestDTO dto) {
+        ProfileEntity profile = get(currentProfileId());
+        if (dto.getEmail() != null) {
+            profile.setEmail(dto.getEmail());
+        }else if(dto.getPhone() != null) {
+            profile.setPhone(dto.getPhone());
+        }else if (dto.getPhotoId() != null) {
+            profile.setPhotoId(dto.getPhotoId());
+        }
+
+        profileRepository.save(profile);
+
+        return "Muvaffaqiyatli o'zgartirildi!";
     }
 }

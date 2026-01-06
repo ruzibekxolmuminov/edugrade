@@ -1,5 +1,5 @@
 package com.example.enums;
 
 public enum GradeType {
-    DAILY, MIDTERM, FINAL
+    DAILY, FIRST_MIDTERM, SECOND_MIDTERM, FINAL
 }

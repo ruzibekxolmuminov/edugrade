@@ -1,0 +1,39 @@
+@teacher_token = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVEVBQ0hFUiJdLCJ1c2VybmFtZSI6IjYyIiwic3ViIjoiNjIiLCJpYXQiOjE3Njc2MDY4NjMsImV4cCI6MTc2NzY5MzI2M30.npiwpUH3Ic0ELNtw_Xh2xChwEkipmbYhLFG7y_EjkRY-K_r7Up_egggE9ZtCxE0u6bb5nT3g5LzQnVlI3HCu7w
+
+### 2. Baho qo'yish (Create Grade)
+POST http://localhost:8080/v1/grade/create
+Authorization: Bearer {{teacher_token}}
+Content-Type: application/json
+
+{
+  "studentId": "db112066-8b5c-44ee-bfd4-24ecf8c72f7f",
+  "subjectId": 1,
+  "scheduleId": "4054ae6f-e8db-4ac1-808e-2726a0d3d22e",
+  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
+  "groupId": "70cba3d8-6802-417f-8335-9e16a658e76e",
+  "gradeValue": 5,
+  "lessonDate": "2026-01-12",
+  "type": "DAILY",
+  "comment": "Darsda juda faol qatnashdi"
+}
+
+### 3. Bahoni tahrirlash (Update)
+PUT http://localhost:8080/v1/grade/update/bf9903ff-0ad8-4271-991c-741357692b69
+Authorization: Bearer {{teacher_token}}
+Content-Type: application/json
+
+{
+  "gradeValue": 4,
+  "comment": "Javobdagi kichik xatolik uchun baho tahrirlandi"
+}
+### Semestr bo'yicha to'liq gradebookni olish
+GET http://localhost:8080/v1/grade/grade-book?groupId=70cba3d8-6802-417f-8335-9e16a658e76e&subjectId=1&startDate=2026-01-12&endDate=2026-06-30
+Authorization: Bearer {{teacher_token}}
+Accept: application/json
+### 4. Talabaning ma'lum bir fan bo'yicha baholarini olish
+GET http://localhost:8080/v1/grade/student/db112066-8b5c-44ee-bfd4-24ecf8c72f7f?subjectId=1
+Authorization: Bearer {{teacher_token}}
+
+### 5. Maktab bo'yicha baho o'zgarishlari loglarini olish (Admin uchun)
+GET http://localhost:8080/v1/grade/log/6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e?page=0&size=10
+Authorization: Bearer {{teacher_token}}

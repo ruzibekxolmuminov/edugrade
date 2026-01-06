@@ -9,6 +9,7 @@ import com.example.dto.homework.HomeworkDTO;
 import com.example.dto.homework.HomeworkUpdateDTO;
 import com.example.entity.HomeworkEntity;
 import com.example.entity.HomeworkSubmitEntity;
+import com.example.enums.GradeType;
 import com.example.exp.AppBadException;
 import com.example.repository.HomeworkRepository;
 import com.example.repository.HomeworkSubmitRepository;
@@ -120,11 +121,10 @@ public class HomeworkService {
         gradeDto.setGradeValue(dto.getGradeValue());
         gradeDto.setSubjectId(hw.getSubjectId());
         gradeDto.setSchoolId(hw.getSchoolId());
-        gradeDto.setWeight(1); // Homework odatda joriy baho
+        gradeDto.setType(GradeType.DAILY);
 
-        String gradeId = gradeService.createGrade(gradeDto, currentProfileId()); // Grade modulidagi metod
+        String gradeId = gradeService.createGrade(gradeDto, currentProfileId());
 
-        // 2. Submission-ni yangilash
         submission.setGradeId(gradeId);
         submission.setFeedback(dto.getFeedback());
         homeworkSubmitRepository.save(submission);

@@ -16,6 +16,9 @@ public class ProfileInfoDTO {
     private String id;
     private String name;
     private String surname;
+    private String email;
+    private String phone;
+    private String photo;
     private String patronymic;
     private String pinfl;
     private String passportSeries;

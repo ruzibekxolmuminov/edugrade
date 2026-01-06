@@ -59,4 +59,10 @@ public class ProfileEntity {
     @OneToMany(mappedBy = "profile")
     private List<ProfileRoleEntity> roles;
 
+    @Column(name = "photo_id")
+    private String photoId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "photo_id", insertable = false, updatable = false)
+    private AttachEntity photo;
 }

@@ -1,0 +1,16 @@
+@teacher_token = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVEVBQ0hFUiJdLCJ1c2VybmFtZSI6IjYyIiwic3ViIjoiNjIiLCJpYXQiOjE3Njc2MDY4NjMsImV4cCI6MTc2NzY5MzI2M30.npiwpUH3Ic0ELNtw_Xh2xChwEkipmbYhLFG7y_EjkRY-K_r7Up_egggE9ZtCxE0u6bb5nT3g5LzQnVlI3HCu7w
+
+
+### To'liq jurnal setkasini olish
+GET http://localhost:8080/v1/journal/full-table?groupId=70cba3d8-6802-417f-8335-9e16a658e76e&subjectId=1&year=2026&month=1
+Authorization: Bearer {{teacher_token}}
+
+### Semestr bo'yicha jurnalni olish (1-semestr)
+GET http://localhost:8080/v1/journal/semester-journal?groupId=70cba3d8-6802-417f-8335-9e16a658e76e&subjectId=1&semester=1
+Authorization: Bearer {{teacher_token}}
+Accept: application/json
+
+### Semestr bo'yicha jurnalni olish (2-semestr)
+GET http://localhost:8080/v1/journal/semester-journal?groupId=70cba3d8-6802-417f-8335-9e16a658e76e&subjectId=1&semester=2
+Authorization: Bearer {{teacher_token}}
+Accept: application/json

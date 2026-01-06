@@ -14,7 +14,6 @@ public class GradeLogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String gradeId;
     private String whoChangedId; // Admin yoki Teacher ID
     private Integer oldGrade;

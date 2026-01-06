@@ -26,6 +26,9 @@ public class AttendanceEntity {
     @Column(name = "schedule_id", nullable = false)
     private String scheduleId;
 
+    @Column(name = "subject_id", nullable = false)
+    private Integer subjectId;
+
     @Column(name = "school_id", nullable = false)
     private String schoolId;
 
@@ -38,6 +41,10 @@ public class AttendanceEntity {
 
     private LocalDate date; // Dars bo'lgan kun
     private LocalDateTime createdDate = LocalDateTime.now();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subject_id", insertable = false, updatable = false)
+    private SubjectEntity subject;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", insertable = false, updatable = false)

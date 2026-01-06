@@ -92,10 +92,17 @@ public class AuthController {
         return ResponseEntity.ok(profileService.deleteByAdmin(id));
     }
 
+
     @PutMapping("/update/password")
     @Operation(summary = "Update password", description = "Api used for update password")
     public ResponseEntity<String> updatePassword(@RequestBody PasswordUpdateDTO update){
         return ResponseEntity.ok(profileService.updatePassword(update));
+    }
+
+    @PutMapping("/update")
+    @Operation(summary = "Update information", description = "Api used for update information byself")
+    public ResponseEntity<String> update(@RequestBody ProfileUpdateDetailRequestDTO dto){
+        return ResponseEntity.ok(profileService.update(dto));
     }
 
     @PreAuthorize("hasAllRoles('MODERATOR')")

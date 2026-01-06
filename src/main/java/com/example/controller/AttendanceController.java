@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.dto.AttendanceStatsDTO;
+import com.example.dto.MonthlyAttendanceDTO;
 import com.example.dto.attendance.AttendanceCreateDTO;
 import com.example.dto.attendance.AttendanceDTO;
 import com.example.dto.attendance.AttendanceUpdateDTO;
@@ -21,7 +23,7 @@ public class AttendanceController {
     private AttendanceService attendanceService;
 
     @PreAuthorize("hasRole('TEACHER')")
-    @PostMapping("/set-addencane/teacher")
+    @PostMapping("/set-attendance/teacher")
     @Operation(summary = "Set attendance", description = "Api used for set attendance by teacher")
     public ResponseEntity<AttendanceDTO> setAttendance(@RequestBody AttendanceCreateDTO attendanceDTO) {
         return ResponseEntity.ok(attendanceService.setAttendance(attendanceDTO));
@@ -44,7 +46,7 @@ public class AttendanceController {
     @PreAuthorize("hasRole('TEACHER')")
     @GetMapping("/get-by-student/{id}")
     @Operation(summary = "GET attendance", description = "Api used for get attendance by student id")
-    public ResponseEntity<AttendanceDTO> getByStudent(@PathVariable String id) {
+    public ResponseEntity<List<AttendanceDTO>> getByStudent(@PathVariable String id) {
         return ResponseEntity.ok(attendanceService.getByStudent(id));
     }
 
@@ -53,5 +55,19 @@ public class AttendanceController {
     @Operation(summary = "GET attendance", description = "Api used for get attendance by group id")
     public ResponseEntity<List<AttendanceDTO>> getByGroup(@PathVariable String id) {
         return ResponseEntity.ok(attendanceService.getByGroup(id));
+    }
+
+    @GetMapping("/stats/{studentId}")
+    public ResponseEntity<AttendanceStatsDTO> getStudentStats(
+            @PathVariable String studentId,
+            @RequestParam Integer subjectId) {
+
+        return ResponseEntity.ok(attendanceService.getStudentStats(studentId, subjectId));
+    }
+    @GetMapping("/monthly-overview/{studentId}")
+    public ResponseEntity<List<MonthlyAttendanceDTO>> getMonthlyOverview(
+            @PathVariable String studentId) {
+
+        return ResponseEntity.ok(attendanceService.getMonthlyOverview(studentId));
     }
 }

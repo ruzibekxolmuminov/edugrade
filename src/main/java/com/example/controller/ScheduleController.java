@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/schedule")
 @Tag(name = "Schedule APIs", description = "Api for schedule control")
@@ -42,7 +44,7 @@ public class ScheduleController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get-by-group-id/admin/{id}")
     @Operation(summary = "Get schedule", description = "Api used for get schedule by group id")
-    public ResponseEntity<ScheduleDTO> getSchedule(@PathVariable("id") String id) {
+    public ResponseEntity<List<ScheduleDTO>> getSchedule(@PathVariable("id") String id) {
         return ResponseEntity.ok(scheduleService.getByGroupId(id));
     }
 

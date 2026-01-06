@@ -14,6 +14,9 @@ public class AuthCreateResponseDTO {
     private String lastName;
     private String patronymic;
     private String password;
+    private String email;
+    private String phone;
+    private String photoId;
     private ProfileGender gender;
     private String schoolId;
     private LocalDate birthDate;

@@ -22,6 +22,7 @@ public class AuthModeratorCreateDTO {
     private String password;
     private String phone;
     private String email;
+    private String photoId;
     @NotNull(message = "Jins kiritilmadi!")
     private ProfileGender gender;
     @NotNull(message = "Maktab id si kiritilmadi!")

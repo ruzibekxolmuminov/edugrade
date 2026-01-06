@@ -1,0 +1,12 @@
+@moderatorToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3Njc2MDU5MzAsImV4cCI6MTc2NzY5MjMzMH0.j6zdGKowAW16PYt9dPWUzxLFdOSM9JTDKwAhu70ILY6mxN-DMAHTOFfBwvSZsUJ12bt5rOC8N_4gmQANldd1dQ
+@adminToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc2MDU5MTEsImV4cCI6MTc2NzY5MjMxMX0.qd-iDE0p46M3N1vGFueMmdsL0OMiCg3JCJl0nYpaEOjgy5xTVMMOFqJBM-vc6SgYtLYRFE3ffHFhJ1SyQ13oWA
+@schoolId = 6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e
+
+
+### 16.1 Maktab statistikasini olish (ADMIN tokeni bilan)
+GET http://localhost:8080/v1/statistics/school/{{schoolId}}
+Authorization: Bearer {{adminToken}}
+
+### 16.2 Global statistikani olish (MODERATOR tokeni bilan)
+GET http://localhost:8080/v1/statistics/global
+Authorization: Bearer {{moderatorToken}}

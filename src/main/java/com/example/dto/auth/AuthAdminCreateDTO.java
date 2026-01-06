@@ -15,6 +15,7 @@ public class AuthAdminCreateDTO {
     private String password;
     private ProfileGender gender;
     private String schoolId;
+    private String photoId;
     private LocalDate birthDate;
     private String pinfl;
     private String phone;

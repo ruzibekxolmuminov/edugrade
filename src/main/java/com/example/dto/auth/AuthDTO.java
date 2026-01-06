@@ -15,6 +15,9 @@ public class AuthDTO {
     private ProfileGender gender;
     private String schoolId;
     private LocalDate birthDate;
+    private String phone;
+    private String email;
+    private String photoId;
     private String pinfl;
     private String passportSeries;
     private String passportNumber;

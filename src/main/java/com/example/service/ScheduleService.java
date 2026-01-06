@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleService {
@@ -98,13 +100,18 @@ public class ScheduleService {
         return "Muvaffaqiyatli o'chirildi!";
     }
 
-    public @Nullable ScheduleDTO getByGroupId(String id) {
-        Optional<ScheduleEntity> schedule = scheduleRepository.getByGroupId(id);
-        if (schedule.isEmpty()) {
+    public List<ScheduleDTO> getByGroupId(String id) {
+        // 1. Guruhga tegishli barcha darslarni olish
+        List<ScheduleEntity> scheduleList = scheduleRepository.getByGroupId(id);
+
+        if (scheduleList.isEmpty()) {
             throw new AppBadException("Schedule with group Id not found!");
         }
 
-        return toDTO(schedule.get());
+        // 2. Entity ro'yxatini DTO ro'yxatiga o'girish
+        return scheduleList.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
     public @Nullable ScheduleDTO getByTeacherId(String id) {

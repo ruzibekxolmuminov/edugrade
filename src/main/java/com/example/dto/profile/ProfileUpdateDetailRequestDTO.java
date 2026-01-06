@@ -6,8 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProfileUpdateDetailRequestDTO {
-    private String name;
-    private String surname;
     private String phone;
-    private String photoId; // Yangi yuklangan rasmning UUID si
+    private String email;
+    private String photoId;
 }

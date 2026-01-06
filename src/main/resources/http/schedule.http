@@ -1,0 +1,85 @@
+@admin_token = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc2MDY0MzcsImV4cCI6MTc2NzY5MjgzN30.qAIpPkbqsca5ZnOrS12ngUYbsDFJiJhuAhRmQ-cpbKzErnMOgb4G2ZBVhDPosUbaS7aurD_Z9AI5yOPTl2miMA
+
+### 2. Dars jadvalini yaratish (Create Schedule)
+POST http://localhost:8080/v1/schedule/create/admin
+Authorization: Bearer {{admin_token}}
+Content-Type: application/json
+
+{
+  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
+  "groupId": "70cba3d8-6802-417f-8335-9e16a658e76e",
+  "teacherId": "f58eb132-788f-4a84-b9b6-35640fb79bf8",
+  "subjectId": 1,
+  "roomId": "104",
+  "startTime": "08:30",
+  "endTime": "09:50",
+  "dayOfWeek": "MONDAY"
+}
+
+### 3. Dars jadvalini tahrirlash (Update Schedule)
+# {id} o'rniga jadvalning (schedule) UUID qiymatini qo'ying
+PUT http://localhost:8080/v1/schedule/update/admin/jadval-uuid-bu-yerga
+Authorization: Bearer {{admin_token}}
+Content-Type: application/json
+
+{
+  "startTime": "09:30",
+  "endTime": "10:15",
+  "dayOfWeek": "TUESDAY"
+}
+
+### 4. Guruh bo'yicha jadvalni olish (Get by Group ID)
+GET http://localhost:8080/v1/schedule/get-by-group-id/admin/guruh-uuid-bu-yerga
+Authorization: Bearer {{admin_token}}
+
+### 5. O'qituvchi bo'yicha jadvalni olish (Get by Teacher ID)
+GET http://localhost:8080/v1/schedule/get-by-teacher-id/admin/teacher-uuid-bu-yerga
+Authorization: Bearer {{admin_token}}
+
+### 6. Dars jadvalini o'chirish (Delete Schedule)
+DELETE http://localhost:8080/v1/schedule/delete/admin/jadval-uuid-bu-yerga
+Authorization: Bearer {{admin_token}}
+
+### 2. Dars jadvalini yaratish (Create Schedule)
+# MUHIM: startTime va endTime uchun HH:mm:ss formatidan foydalaning
+POST http://localhost:8080/v1/schedule/create/admin
+Authorization: Bearer {{admin_token}}
+Content-Type: application/json
+
+{
+  "roomNumber": "301",
+  "weekDay": "MONDAY",
+  "pairNumber": 2,
+  "startTime": "10:00:00",
+  "endTime": "11:20:00",
+  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
+  "groupId": "70cba3d8-6802-417f-8335-9e16a658e76e",
+  "teacherId": "f58eb132-788f-4a84-b9b6-35640fb79bf8",
+  "subjectId": 2
+}
+
+### 3. Dars jadvalini tahrirlash (Update)
+# {id} o'rniga jadvalning (schedule) UUID qiymati qo'yiladi
+PUT http://localhost:8080/v1/schedule/update/admin/jadval-uuid-qiymati
+Authorization: Bearer {{admin_token}}
+Content-Type: application/json
+
+{
+  "roomNumber": "302-xona",
+  "weekDay": "TUESDAY",
+  "pairNumber": 2,
+  "startTime": "10:00:00",
+  "endTime": "11:20:00"
+}
+
+### 4. Guruh bo'yicha jadvalni olish
+GET http://localhost:8080/v1/schedule/get-by-group-id/admin/70cba3d8-6802-417f-8335-9e16a658e76e
+Authorization: Bearer {{admin_token}}
+
+### 5. O'qituvchi bo'yicha jadvalni olish
+GET http://localhost:8080/v1/schedule/get-by-teacher-id/admin/o'qituvchi-uuid-qiymati
+Authorization: Bearer {{admin_token}}
+
+### 6. Dars jadvalini o'chirish
+DELETE http://localhost:8080/v1/schedule/delete/admin/jadval-uuid-qiymati
+Authorization: Bearer {{admin_token}}
