@@ -3,13 +3,13 @@ POST localhost:8080/v1/auth/login
 Content-Type: application/json
 
 {
-  "passportNumber": "623",
+  "passportNumber": "623456789",
   "password": "12345"
 }
 
 ### CREATE ADMIN
 POST localhost:8080/v1/auth/registration/moderator
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3Njc1MTgzNTIsImV4cCI6MTc2NzYwNDc1Mn0.klVdSZzjvmnEwjd1kiZGwn2N_tNiY-Ci2iemj0Sjfz_SHTdT6NNetgg7p4CD6DNgZIIXXEeSiyJla8Km__9cvw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3Njc3NjU2NDYsImV4cCI6MTc2Nzg1MjA0Nn0.gLfdaAHU_nWd0AhaquFIqPGLrt8BN0THY86iRQw0rKAxVuhzuoy42-V2dk8P8Wv7Uhk9o9fXj2MDorfuzg-LxQ
 Content-Type: application/json
 
 {
@@ -25,16 +25,16 @@ Content-Type: application/json
   "passportSeries": "AB",
   "passportNumber": "123456701",
   "roles": ["ROLE_ADMIN"],
-  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e"
+  "schoolId": "a84a424f-7823-4fc6-b9d0-9dde6f00eeb2"
 }
 
 ### CREATE TEACHER OR STUDENT
 POST localhost:8080/v1/auth/registration/admin
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc2MDY0MzcsImV4cCI6MTc2NzY5MjgzN30.qAIpPkbqsca5ZnOrS12ngUYbsDFJiJhuAhRmQ-cpbKzErnMOgb4G2ZBVhDPosUbaS7aurD_Z9AI5yOPTl2miMA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc3NjU3MzcsImV4cCI6MTc2Nzg1MjEzN30.PwPestwr0-qDvD7uM6nPnZSjEQFzvTN279oQiVlK6dhiBu_4LkezxGxj5B27EoR7-1wJmQIiavwyKd36WwMHrg
 Content-Type: application/json
 
 {
-  "firstName": "asilbek",
+  "firstName": "ruzibek",
   "lastName": "xolmuminov",
   "patronymic": "anvarovich",
   "phone": "+998999999999",
@@ -42,11 +42,11 @@ Content-Type: application/json
   "birthDate": "2003-11-14",
   "password": "12345",
   "gender": "MALE",
-  "pinfl": "6234",
+  "pinfl": "6",
   "passportSeries": "AB",
-  "passportNumber": "6234",
-  "roles": ["ROLE_TEACHER"],
-  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e"
+  "passportNumber": "623456789",
+  "roles": ["ROLE_STUDENT"],
+  "schoolId": "a84a424f-7823-4fc6-b9d0-9dde6f00eeb2"
 }
 
 ### GET BY ID (MODERATOR)

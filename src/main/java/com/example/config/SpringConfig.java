@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
@@ -39,28 +41,40 @@ public class SpringConfig {
             "/v1/auth/login",
             "/v1/attach/open/{id}",
             "/v1/attach/upload",
+            "/index.html",      // <--- Bunga ruxsat berish shart
+            "/",                // <--- Root URL ga ruxsat
+            "/static/**",
             "/v1/attach/download/{id}",
             "/v1/api/chat/**",
-            "/ws-chat/**",
-            "/**",
+            "/ws/**",
             "/swagger-ui/**",
             "/v3/api-docs",
             "/v3/api-docs/**"
     };
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // 1. CSRF ni o'chirib qo'yamiz (Stateless API uchun shart)
         http.csrf(AbstractHttpConfigurer::disable);
 
-        // 2. CORS ni o'chirib turing (Frontend bilan ulaganda kerak bo'ladi)
-        http.cors(AbstractHttpConfigurer::disable);
-
+//        // 2. CORS ni o'chirib turing (Frontend bilan ulaganda kerak bo'ladi)
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(AUTH_WHITELIST).permitAll() // Whitelistdagilarga ruxsat
                 .anyRequest().authenticated()                // Qolganlari uchun login shart
         ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*")); // Test uchun hamma joydan ruxsat
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type")); // Authorization ruxsat berilishi shart
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

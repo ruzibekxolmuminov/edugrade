@@ -1,5 +1,5 @@
 package com.example.enums;
 
 public enum ChatRole {
-    ADMIN, MEMBER
+    ADMIN, MEMBER, TEACHER
 }

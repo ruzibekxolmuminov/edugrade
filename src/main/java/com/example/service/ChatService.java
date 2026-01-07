@@ -1,6 +1,8 @@
 package com.example.service;
 
+import com.example.dto.ChatDTO;
 import com.example.dto.MessageDTO;
+import com.example.dto.group.GroupDTO;
 import com.example.entity.ChatMessage;
 import com.example.entity.GroupEntity;
 import com.example.entity.ProfileEntity;
@@ -11,9 +13,13 @@ import com.example.repository.GroupRepository;
 import com.example.repository.ProfileRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.cache.spi.entry.CacheEntry;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,15 +30,15 @@ public class ChatService {
     private final GroupRepository groupRepo;
 
     public MessageDTO processMessage(MessageDTO dto) {
-        // 1. Foydalanuvchi ushbu sinf a'zosi ekanligini tekshirish
-//        boolean isMember = chatMemberRepository.existsByProfileIdAndGroupId(
-//                dto.getSenderId(),
-//                dto.getGroupId()
-//        );
-//
-//        if (!isMember) {
-//            throw new RuntimeException("Siz ushbu sinf a'zosi emassiz! Xabar yuborish taqiqlanadi.");
-//        }
+//         1. Foydalanuvchi ushbu sinf a'zosi ekanligini tekshirish
+        boolean isMember = chatMemberRepository.existsByProfileIdAndGroupId(
+                dto.getSenderId(),
+                dto.getGroupId()
+        );
+
+        if (!isMember) {
+            throw new RuntimeException("Siz ushbu sinf a'zosi emassiz! Xabar yuborish taqiqlanadi.");
+        }
 
         // 2. Agar a'zo bo'lsa, xabarni saqlash
         return saveNewMessage(dto);
@@ -45,8 +51,8 @@ public class ChatService {
         ProfileEntity sender = profileRepo.findById(dto.getSenderId()).orElseThrow();
         GroupEntity group = groupRepo.findById(dto.getGroupId()).orElseThrow();
 //
-        entity.setSender(sender);
-        entity.setGroup(group);
+        entity.setProfileId(sender.getId());
+        entity.setGroupId(group.getId());
         entity.setContent(dto.getContent());
         entity.setType(dto.getType());
 
@@ -66,5 +72,48 @@ public class ChatService {
         msg.setType(MessageType.DELETE);
         chatRepo.save(msg);
         return dto;
+    }
+    public List<ChatDTO> get(String groupId) {
+        List<ChatMessage> chatMessages = chatRepo.findByGroupIdOrderByCreatedAtAsc(groupId);
+        List<ChatDTO> chatDTOS = new LinkedList<>();
+
+        for (ChatMessage chatMessage : chatMessages) {
+            ChatDTO chatDTO = new ChatDTO();
+            chatDTO.setId(chatMessage.getId());
+            chatDTO.setContent(chatMessage.getContent());
+            chatDTO.setType(chatMessage.getType());
+            chatDTO.setCreatedAt(chatMessage.getCreatedAt());
+
+            // Bu yerda senderId va senderName ni o'rnatamiz
+            chatDTO.setProfile(chatMessage.getProfileId());
+            if (chatMessage.getSender() != null) {
+                chatDTO.setSenderName(chatMessage.getSender().getFirstname() + " " + chatMessage.getSender().getLastname());
+            } else {
+                chatDTO.setSenderName("Noma'lum");
+            }
+
+            chatDTOS.add(chatDTO);
+        }
+        return chatDTOS;
+    }
+
+    public List<GroupDTO> getUserGroups(String currentUserId) {
+        // ChatMember jadvalidan foydalanuvchi a'zo bo'lgan hamma guruhlarni oladi
+        // Bu yerda uning roli (ADMIN, TEACHER, MEMBER) farqi yo'q
+        List<GroupEntity> groups = chatMemberRepository.findGroupsByProfileId(currentUserId);
+
+        List<GroupDTO> groupDTOS = new LinkedList<>();
+        for (GroupEntity group : groups) {
+            GroupDTO groupDTO = new GroupDTO();
+            groupDTO.setId(group.getId());
+            groupDTO.setName(group.getName());
+
+            // Dinamik ravishda a'zolar sonini hisoblash
+            Integer count = groupRepo.getMemberCountById(group.getId());
+            groupDTO.setMemberCount(count != null ? count : 0);
+
+            groupDTOS.add(groupDTO);
+        }
+        return groupDTOS;
     }
 }

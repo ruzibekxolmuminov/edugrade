@@ -1,24 +1,24 @@
 @moderatorToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3Njc1MTgzNTIsImV4cCI6MTc2NzYwNDc1Mn0.klVdSZzjvmnEwjd1kiZGwn2N_tNiY-Ci2iemj0Sjfz_SHTdT6NNetgg7p4CD6DNgZIIXXEeSiyJla8Km__9cvw
 @studentToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfU1RVREVOVCJdLCJ1c2VybmFtZSI6IjYyMyIsInN1YiI6IjYyMyIsImlhdCI6MTc2NzUxOTEwMCwiZXhwIjoxNzY3NjA1NTAwfQ.r9m2WPTcTSoxbZO7-9LG0B3l1rwihaaKQY7Uwy3-JRErRDiaJpvO549wI1MPlbcsDMEK2GVSqHM5MMVyzFhDVQ
 @teacherToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVEVBQ0hFUiJdLCJ1c2VybmFtZSI6IjYyIiwic3ViIjoiNjIiLCJpYXQiOjE3Njc1MTkwNzQsImV4cCI6MTc2NzYwNTQ3NH0.tqtE_YC9UcOFWFvCLGgL1VBrH6v_3a8rFqareONPlcIJqOQGTkLHhkp5U66_wbWnX8Trzm4WcDn_b2bR7RdGWQ
-@adminToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc2MDY0MzcsImV4cCI6MTc2NzY5MjgzN30.qAIpPkbqsca5ZnOrS12ngUYbsDFJiJhuAhRmQ-cpbKzErnMOgb4G2ZBVhDPosUbaS7aurD_Z9AI5yOPTl2miMA
+@adminToken = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc3NjE5MTMsImV4cCI6MTc2Nzg0ODMxM30.1mWT5M998Qk5RYtssRSj4pSG9cdrFNLvWOeOoB5vLUbfs7iO19w1DVn9Vcs81NYkRHOh22KMEbAoYY9HexiqDA
 
 
 ### CREATE GROUP
 POST localhost:8080/v1/group/create/admin
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc1MTg1NDYsImV4cCI6MTc2NzYwNDk0Nn0.gNp4cWxlbIi4wA56aet4TeRT41D9nu8REuVFKinQk3QqmVrEyp8_pcGY4fTy4hyK-5hzuAWjl6RdkmsTmp1G_w
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc3NjE5MTMsImV4cCI6MTc2Nzg0ODMxM30.1mWT5M998Qk5RYtssRSj4pSG9cdrFNLvWOeOoB5vLUbfs7iO19w1DVn9Vcs81NYkRHOh22KMEbAoYY9HexiqDA
 Content-Type: application/json
 
 {
-  "name": "group 101",
+  "name": "group 107",
   "level": "FIRST",
-  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
-  "facultyId": "46709427-28d4-41e9-aa08-d845795172f4",
-  "mentorId": "f58eb132-788f-4a84-b9b6-35640fb79bf8"
+  "schoolId": "a84a424f-7823-4fc6-b9d0-9dde6f00eeb2",
+  "facultyId": "c173bba6-6743-4bd5-90e7-d055be272f18",
+  "mentorId": "d1fa6106-1b7a-4f35-b986-4db68fd80446"
 }
 
 ### 6.6 Bitta o'quvchini guruhga biriktirish
-PUT http://localhost:8080/v1/group/assign-student?studentId=087bfba3-92a6-4995-a43f-9cab0d74e8e6&groupId=70cba3d8-6802-417f-8335-9e16a658e76e
+PUT http://localhost:8080/v1/group/assign-student?studentId=06b2bc1b-6ece-450b-9d40-bf6937b74d77&groupId=d2d5a47a-5d76-4d6f-b843-d22afa95d2fc
 Authorization: Bearer {{adminToken}}
 
 ### 6.7 O'quvchilarni guruhga ommaviy biriktirish (Bulk)

@@ -14,5 +14,6 @@ public class GroupDTO {
     private LocalDateTime createdAt;
     private String mentorId;
     private String schoolId;
+    private Integer memberCount;
     private String facultyId;
 }

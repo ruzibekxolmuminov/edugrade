@@ -35,12 +35,15 @@ public class GroupEntity {
     @Column(name = "faculty_id")
     private String facultyId;
 
-    @Column(name = "mentor_id")
+    @Column(name = "mentor_id", unique = true)
     private String mentorId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id", insertable = false, updatable = false)
     private SchoolEntity school;
+
+    @Column(name = "member_count")
+    private Integer memberCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_id", insertable = false, updatable = false)

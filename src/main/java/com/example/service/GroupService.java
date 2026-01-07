@@ -39,15 +39,24 @@ public class GroupService {
         if (isExist.isPresent()) {
             throw new Exist("Group already exists");
         }
+        Boolean isMentor = groupRepository.existsGroupEntityByMentorId(group.getMentorId());
+        if (isMentor){
+            throw new AppBadException("Bu Teacher boshqa guruhga Mentorlik qiladi!");
+        }
         GroupEntity groupEntity = new GroupEntity();
         groupEntity.setName(group.getName());
         groupEntity.setCreatedDate(LocalDateTime.now());
         groupEntity.setLevel(group.getLevel());
         groupEntity.setFacultyId(group.getFacultyId());
         groupEntity.setMentorId(group.getMentorId());
+        groupEntity.setMemberCount(1);
         groupEntity.setSchoolId(group.getSchoolId());
         groupEntity.setVisible(true);
         groupRepository.save(groupEntity);
+
+        ProfileEntity profile = profileRepository.getById(group.getMentorId());
+        profile.setGroupId(groupEntity.getId());
+        profileRepository.save(profile);
 
         ChatMember teacherMember = new ChatMember();
         teacherMember.setGroup(groupEntity);
@@ -116,8 +125,11 @@ public class GroupService {
         student.setGroupId(groupId);
 
         profileRepository.save(student);
+        GroupEntity group = getById(groupId);
+        group.setMemberCount(group.getMemberCount() + 1);
+        groupRepository.save(group);
         ChatMember studentMember = new ChatMember();
-        studentMember.setGroup(groupRepository.getById(groupId));
+        studentMember.setGroup(group);
         studentMember.setProfile(student);
         studentMember.setRole(ChatRole.MEMBER); // O'quvchi - Member
         chatMemberRepository.save(studentMember);
@@ -128,11 +140,17 @@ public class GroupService {
     @Transactional
     public String bulkAssign(List<String> studentIds, String groupId) {
         checkGroupExists(groupId);
-
+        GroupEntity group = getById(groupId);
         for (String studentId : studentIds) {
             profileRepository.findById(studentId).ifPresent(student -> {
                 student.setGroupId(groupId);
                 profileRepository.save(student);
+                group.setMemberCount(+1);
+                ChatMember studentMember = new ChatMember();
+                studentMember.setGroup(groupRepository.getById(groupId));
+                studentMember.setProfile(student);
+                studentMember.setRole(ChatRole.MEMBER); // O'quvchi - Member
+                chatMemberRepository.save(studentMember);
             });
         }
         return studentIds.size() + " ta o'quvchi muvaffaqiyatli guruhga qo'shildi";

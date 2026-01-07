@@ -1,13 +1,13 @@
 ### CREATE SCHOOl
 POST localhost:8080/v1/school/create/moderator
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3NjcwMDk2NzYsImV4cCI6MTc2NzA5NjA3Nn0.i3HAXQxYAeapjfj1QFO2g25B27QnrtXwPhpwP1yT8zv4khI_CkALej8wf8EKuV7V03CKlDUHAUPzAjlKyaBEeA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfTU9ERVJBVE9SIl0sInVzZXJuYW1lIjoiMTIzNDU2NyIsInN1YiI6IjEyMzQ1NjciLCJpYXQiOjE3Njc3NjU2NDYsImV4cCI6MTc2Nzg1MjA0Nn0.gLfdaAHU_nWd0AhaquFIqPGLrt8BN0THY86iRQw0rKAxVuhzuoy42-V2dk8P8Wv7Uhk9o9fXj2MDorfuzg-LxQ
 Content-Type: application/json
 
 {
   "name": "test 5",
   "address": "test 4",
   "number": 70,
-  "attachId": "d0ea248f-7598-4a18-8b02-8527597ee85b.jpg",
+  "attachId": "7622ed37-c008-44ff-91ae-d03abc675944.jpg",
   "regionId": 1
 }
 

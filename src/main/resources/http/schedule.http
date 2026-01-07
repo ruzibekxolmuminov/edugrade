@@ -1,4 +1,4 @@
-@admin_token = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc3MDQ0NDEsImV4cCI6MTc2Nzc5MDg0MX0.jk6SP-XMrRPfW2sSh2hOT2Lcx2FnD5733SEfxq3xZaUKGjJLrk4mSCa52aoHTxqp4_rNB9O8bbtNuDpnigrZUQ
+@admin_token = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc3NjU3MzcsImV4cCI6MTc2Nzg1MjEzN30.PwPestwr0-qDvD7uM6nPnZSjEQFzvTN279oQiVlK6dhiBu_4LkezxGxj5B27EoR7-1wJmQIiavwyKd36WwMHrg
 
 ### 2. Dars jadvalini yaratish (Create Schedule)
 POST http://localhost:8080/v1/schedule/create/admin
@@ -6,14 +6,15 @@ Authorization: Bearer {{admin_token}}
 Content-Type: application/json
 
 {
-  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
-  "groupId": "70cba3d8-6802-417f-8335-9e16a658e76e",
-  "teacherId": "f58eb132-788f-4a84-b9b6-35640fb79bf8",
+  "schoolId": "a84a424f-7823-4fc6-b9d0-9dde6f00eeb2",
+  "groupId": "d2d5a47a-5d76-4d6f-b843-d22afa95d2fc",
+  "teacherId": "d1fa6106-1b7a-4f35-b986-4db68fd80446",
   "subjectId": 1,
+  "pairNumber": 1,
   "roomId": "104",
   "startTime": "08:30",
   "endTime": "09:50",
-  "dayOfWeek": "MONDAY"
+  "weekDay": "MONDAY"
 }
 
 ### 3. Dars jadvalini tahrirlash (Update Schedule)

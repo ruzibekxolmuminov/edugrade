@@ -1,4 +1,4 @@
-@teacher_token = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVEVBQ0hFUiJdLCJ1c2VybmFtZSI6IjYyIiwic3ViIjoiNjIiLCJpYXQiOjE3Njc2MDY4NjMsImV4cCI6MTc2NzY5MzI2M30.npiwpUH3Ic0ELNtw_Xh2xChwEkipmbYhLFG7y_EjkRY-K_r7Up_egggE9ZtCxE0u6bb5nT3g5LzQnVlI3HCu7w
+@teacher_token = eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfVEVBQ0hFUiJdLCJ1c2VybmFtZSI6IjYyMzQ1Njc4OSIsInN1YiI6IjYyMzQ1Njc4OSIsImlhdCI6MTc2Nzc2NjA1NywiZXhwIjoxNzY3ODUyNDU3fQ.UeeA453QBRza0zovFiMRWOrcvNUNYRfBlZqB6Fhfxs6V78uWjrkTms9TOqVEGSmWIDzQouQrh_yXQesAn223Ww
 
 ### 2. Baho qo'yish (Create Grade)
 POST http://localhost:8080/v1/grade/create
@@ -6,11 +6,11 @@ Authorization: Bearer {{teacher_token}}
 Content-Type: application/json
 
 {
-  "studentId": "db112066-8b5c-44ee-bfd4-24ecf8c72f7f",
+  "studentId": "06b2bc1b-6ece-450b-9d40-bf6937b74d77",
   "subjectId": 1,
-  "scheduleId": "4054ae6f-e8db-4ac1-808e-2726a0d3d22e",
-  "schoolId": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e",
-  "groupId": "70cba3d8-6802-417f-8335-9e16a658e76e",
+  "scheduleId": "16f04585-caa6-4b0c-9beb-c2b013bc38d4",
+  "schoolId": "a84a424f-7823-4fc6-b9d0-9dde6f00eeb2",
+  "groupId": "d2d5a47a-5d76-4d6f-b843-d22afa95d2fc",
   "gradeValue": 5,
   "lessonDate": "2026-01-12",
   "type": "DAILY",

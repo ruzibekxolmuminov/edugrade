@@ -3,9 +3,14 @@ package com.example.service;
 import com.example.dto.schedule.ScheduleDTO;
 import com.example.dto.schedule.ScheduleCreateDTO;
 import com.example.dto.schedule.ScheduleUpdateDTO;
+import com.example.entity.ChatMember;
+import com.example.entity.GroupEntity;
 import com.example.entity.ProfileEntity;
 import com.example.entity.ScheduleEntity;
+import com.example.enums.ChatRole;
 import com.example.exp.AppBadException;
+import com.example.repository.ChatMemberRepository;
+import com.example.repository.GroupRepository;
 import com.example.repository.ProfileRepository;
 import com.example.repository.ScheduleRepository;
 import org.jspecify.annotations.Nullable;
@@ -23,6 +28,10 @@ public class ScheduleService {
     private ScheduleRepository scheduleRepository;
     @Autowired
     private ProfileRepository profileRepository;
+    @Autowired
+    private ChatMemberRepository chatMemberRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
     public @Nullable ScheduleDTO create(ScheduleCreateDTO scheduleDTO) {
         Optional<ScheduleEntity> isExist = scheduleRepository.findByRoomNumberAndStartTimeAndEndTimeAndWeekDay(scheduleDTO.getRoomNumber(), scheduleDTO.getStartTime(), scheduleDTO.getEndTime(), scheduleDTO.getWeekDay());
@@ -46,6 +55,18 @@ public class ScheduleService {
         scheduleEntity.setVisible(true);
         scheduleEntity.setCreatedDate(LocalDateTime.now());
         scheduleRepository.save(scheduleEntity);
+        boolean isAlreadyMember = chatMemberRepository.existsByProfileIdAndGroupId(scheduleDTO.getTeacherId(), scheduleDTO.getGroupId());
+        if (!isAlreadyMember){
+            ChatMember teacherMember = new ChatMember();
+            teacherMember.setGroup(scheduleEntity.getGroup());
+            teacherMember.setProfile(profileRepository.getById(scheduleDTO.getTeacherId()));
+            teacherMember.setRole(ChatRole.TEACHER);
+            chatMemberRepository.save(teacherMember);
+
+            GroupEntity group = groupRepository.getById(scheduleDTO.getGroupId());
+            group.setMemberCount(group.getMemberCount() + 1);
+            groupRepository.save(group);
+        }
 
         return toDTO(scheduleEntity);
     }
@@ -80,6 +101,9 @@ public class ScheduleService {
             schedule.setGroupId(scheduleUpdateDTO.getGroupId());
         } else if (scheduleUpdateDTO.getTeacherId() != null) {
             schedule.setTeacherId(scheduleUpdateDTO.getTeacherId());
+            ChatMember group = chatMemberRepository.getByProfile(profileRepository.getById(scheduleUpdateDTO.getTeacherId()));
+            group.setProfile(profileRepository.getById(scheduleUpdateDTO.getTeacherId()));
+            chatMemberRepository.save(group);
         } else if (scheduleUpdateDTO.getSubjectId() != null) {
             schedule.setSubjectId(scheduleUpdateDTO.getSubjectId());
         } else if (scheduleUpdateDTO.getPairNumber() != null) {

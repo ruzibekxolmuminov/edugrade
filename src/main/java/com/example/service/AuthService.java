@@ -148,6 +148,7 @@ public class AuthService {
         }
 
         AuthDTO profileDTO = new AuthDTO();
+        profileDTO.setId(profile.getId());
         profileDTO.setFirstName(profile.getFirstname());
         profileDTO.setLastName(profile.getLastname());
         profileDTO.setPatronymic(profile.getPatronymic());

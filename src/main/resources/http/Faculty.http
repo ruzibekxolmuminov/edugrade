@@ -1,12 +1,12 @@
 ### CREATE FACULTY
 POST localhost:8080/v1/faculty/create/admin
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3OSIsInN1YiI6IjEyMzQ1Njc5IiwiaWF0IjoxNzY3MDE3NDc1LCJleHAiOjE3NjcxMDM4NzV9.P5zi3RdhpzxEVWN0JNC3_2_ATx8TUYBs7oO95VOmhURJ6I36A1rzFohdQ5rlFqfqoUdBMJJUQQlFna_jcpugIA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbIlJPTEVfQURNSU4iXSwidXNlcm5hbWUiOiIxMjM0NTY3MDEiLCJzdWIiOiIxMjM0NTY3MDEiLCJpYXQiOjE3Njc3NjU3MzcsImV4cCI6MTc2Nzg1MjEzN30.PwPestwr0-qDvD7uM6nPnZSjEQFzvTN279oQiVlK6dhiBu_4LkezxGxj5B27EoR7-1wJmQIiavwyKd36WwMHrg
 Content-Type: application/json
 
 {
   "name": "test 3",
   "description": "test 2",
-  "school_id": "6fadf266-484f-4e0f-b77b-7a6e2c7e7f6e"
+  "school_id": "a84a424f-7823-4fc6-b9d0-9dde6f00eeb2"
 }
 
 ### GET LIST

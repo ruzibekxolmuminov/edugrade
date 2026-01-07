@@ -15,11 +15,19 @@ public class ChatMessage {
     private Long id;
     
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id", insertable = false, updatable = false)
     private ProfileEntity sender;
+
+    @Column(name = "sender_id")
+    private String profileId;
     
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id", insertable = false, updatable = false)
     private GroupEntity group;
-    
+
+    @Column(name = "group_id")
+    private String groupId;
+
     @Column(columnDefinition = "TEXT")
     private String content;
     
